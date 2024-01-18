@@ -7,3 +7,5 @@ const Navbar = () => {
 }
 
 export default Navbar
+
+//The bar that goes across the screen 
