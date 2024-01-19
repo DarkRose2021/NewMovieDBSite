@@ -3,7 +3,7 @@ import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 
 const NavBar = () => {
   return (
-   <Navbar bg= 'dark' expand="lg">
+   <Navbar className="navBar" expand="lg">
      <Container>
         <Navbar.Brand href="#home">[Name of Website]</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -28,3 +28,5 @@ const NavBar = () => {
 export default NavBar
 
 //The bar that goes across the screen 
+    //Changes depending on if there is a token or not 
+    //
