@@ -3,6 +3,8 @@ const {
 	fetchMovieData,
 	fetchCastInformation,
 	updateMovieDetails,
+	fetchOneMovie,
+	updateOneMovieDetails,
 } = require("./movieFetchUtils");
 
 module.exports = (app) => {
@@ -37,95 +39,23 @@ module.exports = (app) => {
 		}
 	});
 
-	app.get("/filterMovies", (req, res) => {
-		//change url
-		const url = `https://api.themoviedb.org/3/movie/550?api_key=${process.env.API_KEY}`;
-		const options = {
-			method: "GET",
-			headers: {
-				accept: "application/json",
-				Authorization: process.env.ACCESS_TOKEN_AUTH,
-			},
-		};
+	//Finished
+	app.get("/oneMovie/:movieId", async (req, res) => {
+		try {
+			const movieId = req.params.movieId;
+	
+			// Use the updated fetchOneMovie function
+			const movieDetails = await fetchOneMovie(movieId);
+	
+			const castJson = await fetchCastInformation(movieId);
 
-		fetch(url, options)
-			.then((response) => response.json())
-			.then((json) => {
-				res.json(json);
-			})
-			.catch((err) => {
-				console.error("error:" + err);
-				// Send an error response to the client if something goes wrong
-				res.status(500).json({ error: "Internal Server Error" });
-			});
-	});
+			// Update movie details with actors
+			const updatedMovieDetails = updateOneMovieDetails(movieDetails, castJson);
 
-	app.get("/filterActors", (req, res) => {
-		//change url
-		const url = `https://api.themoviedb.org/3/movie/550?api_key=${process.env.API_KEY}`;
-		const options = {
-			method: "GET",
-			headers: {
-				accept: "application/json",
-				Authorization: process.env.ACCESS_TOKEN_AUTH,
-			},
-		};
-
-		fetch(url, options)
-			.then((response) => response.json())
-			.then((json) => {
-				res.json(json);
-			})
-			.catch((err) => {
-				console.error("error:" + err);
-				// Send an error response to the client if something goes wrong
-				res.status(500).json({ error: "Internal Server Error" });
-			});
-	});
-
-	app.get("/oneMovie", (req, res) => {
-		//change url
-		const url = `https://api.themoviedb.org/3/movie/550?api_key=${process.env.API_KEY}`;
-		const options = {
-			method: "GET",
-			headers: {
-				accept: "application/json",
-				Authorization: process.env.ACCESS_TOKEN_AUTH,
-			},
-		};
-
-		fetch(url, options)
-			.then((response) => response.json())
-			.then((json) => {
-				res.json(json);
-			})
-			.catch((err) => {
-				console.error("error:" + err);
-				// Send an error response to the client if something goes wrong
-				res.status(500).json({ error: "Internal Server Error" });
-			});
-	});
-
-	app.get("/rateMovie", (req, res) => {
-		//change url
-		const url = `https://api.themoviedb.org/3/movie/550?api_key=${process.env.API_KEY}`;
-		const options = {
-			method: "GET",
-			headers: {
-				accept: "application/json",
-				Authorization: process.env.ACCESS_TOKEN_AUTH,
-			},
-		};
-
-		fetch(url, options)
-			.then((response) => response.json())
-			.then((json) => {
-				res.json(json);
-			})
-			.catch((err) => {
-				console.error("error:" + err);
-				// Send an error response to the client if something goes wrong
-				res.status(500).json({ error: "Internal Server Error" });
-			});
+			res.json(updatedMovieDetails);
+		} catch (error) {
+			console.error("Error:", error);
+			res.status(500).json({ error: "Internal Server Error" });
+		}
 	});
 };
