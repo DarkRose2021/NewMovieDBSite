@@ -3,6 +3,8 @@ const commonHeaders = {
 	Authorization: process.env.ACCESS_TOKEN_AUTH,
 };
 
+//get auth token and api key at: https://developer.themoviedb.org/docs/getting-started
+
 module.exports = {
 	fetchGenres: async () => {
 		const genreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}`;

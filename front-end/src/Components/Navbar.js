@@ -32,20 +32,20 @@ const NavBar = () => {
 						)}
 					</Navbar.Brand>
 					<Navbar.Toggle />
-          <Navbar.Collapse className="justify-content-between">
-            <Navbar.Text className="mx-auto">
-              <h2>Name of the Site</h2>
-            </Navbar.Text>
-            <Navbar.Text>
-              {/* Change to a toggle to show login   signup when not logged in */}
-              <i className="bi bi-person-circle h1"></i>
-            </Navbar.Text>
-          </Navbar.Collapse>
+					<Navbar.Collapse className="justify-content-between">
+						<Navbar.Text className="mx-auto">
+							<h2>Name of the Site</h2>
+						</Navbar.Text>
+						<Navbar.Text>
+							{/* Change to a toggle to show login   signup when not logged in */}
+							<i className="bi bi-person-circle h1"></i>
+						</Navbar.Text>
+					</Navbar.Collapse>
 				</Container>
 			</Navbar>
 
 			<div id="main">
-        {/* Content */}
+				{/* Content */}
 				<Home />
 			</div>
 		</>
