@@ -3,6 +3,14 @@
     "Username": "testing3222",
     "Password": "$2a$10$ZwnWP5oiscTVvhmYU.hoqul0MzjdIVXXK2WZ2UXbcsD388ekWVfjC",
     "RegPassword": "test123",
-    "Name": "user"
+    "Name": "user",
+    "Role": ["Client"]
+  },
+  {
+    "Username": "testing",
+    "Password": "$2a$10$px2tEUU3Tqf2eBfdSKVb9ew5LBlCOvkYfRxPcea4YF/Bo5FpjUH6W",
+    "RegPassword": "test123",
+    "Name": "user",
+    "Role": ["Client"]
   }
 ]

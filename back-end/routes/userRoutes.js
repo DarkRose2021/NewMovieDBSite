@@ -5,8 +5,7 @@ module.exports = (app) => {
 	app.post("/login", async (req, res) => {
 		const username = req.body.username;
 		const password = req.body.password;
-
-		// Retrieve user from the userService
+//ref dal to send the info to the dal
 		const user = userService.getUser(username);
 		console.log(user);
 
@@ -45,14 +44,14 @@ module.exports = (app) => {
 		const password = req.body.password;
 		const name = req.body.name;
 
-		// Create a new user object
 		const newUser = {
 			Username: username,
 			Password: password,
 			Name: name,
+			Role: ["Client"]
 		};
 
-		// Add the new user to the users array in the userService
+		//ref dal to send the info to the dal
 		userService.addUser(newUser);
 
 		res.json({
@@ -61,19 +60,32 @@ module.exports = (app) => {
 		});
 	});
 
-	app.post("/reviewMovie", (req, res) => {
+	app.post("/reviewMovie/:username", (req, res) => {
 		const movieName = req.body.movieName;
 		const starAmount = req.body.starAmount;
 		const textBox = req.body.textBox;
+		const username = req.params.username
 
-		//ref dal to send the info to the dal
-		let review;
-		res.json({ Message: "Review submitted" });
+		const newReview = {
+			MovieName: movieName,
+			starAmount: starAmount,
+			ReviewTxt: textBox,
+			UserPosted: username
+		}
+//ref dal to send the info to the dal
+		userService.addReview(newReview)
+
+		
+		res.json({
+			User: newReview,
+			Message: "Review Submitted",
+		});
 	});
 
 	app.post("/deleteReview/:id", (req, res) => {
 		const id = req.params.id;
 		//ref dal to send the info to the dal
+		userService.deleteReview(id)
 
 		res.json({ Message: "Review Deleted" });
 	});
