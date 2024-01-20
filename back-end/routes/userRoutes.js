@@ -1,4 +1,4 @@
-const bcrypt = require("bcryptjs");
+const bcryptjs = require("bcryptjs");
 const userService = require("../services/userService");
 
 module.exports = (app) => {
@@ -22,7 +22,7 @@ module.exports = (app) => {
 		console.log("Stored hashed password:", user.Password);
 		console.log("Entered password:", password);
 
-		const isPasswordValid = bcrypt.compareSync(password, user.Password);
+		const isPasswordValid = await bcryptjs.compare(password, user.Password);
 		console.log("Is password valid:", isPasswordValid);
 
 		if (isPasswordValid) {
@@ -45,21 +45,10 @@ module.exports = (app) => {
 		const password = req.body.password;
 		const name = req.body.name;
 
-		// Check if the username is already taken
-		// if (await userService.getUser(username)) {
-		// 	res.json({
-		// 		Message: "Username is already taken. Please choose another username.",
-		// 	});
-		// 	return;
-		// }
-
-		// Hash the password
-		const hashedPassword = await bcrypt.hash(password, 10);
-
 		// Create a new user object
 		const newUser = {
 			Username: username,
-			Password: hashedPassword,
+			Password: password,
 			Name: name,
 		};
 

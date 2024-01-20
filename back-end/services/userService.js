@@ -1,10 +1,13 @@
 const fs = require("fs");
 const path = require("path");
-const bcrypt = require("bcryptjs");
+const bcryptjs = require("bcryptjs");
 const userService = require("../services/userService");
 
 const usersFilePath = path.join(__dirname, "users.json");
+// delete this file later, placeholder for the database
 const users = require("./users.json")
+
+// eventually delete this cuz its basically a dal
 
 module.exports = {
 	getUser: (username) => {
@@ -25,12 +28,14 @@ module.exports = {
 		}
 
 		// Hash the password
-		const hashedPassword = bcrypt.hashSync(user.Password, 10);
+		const hashedPassword = bcryptjs.hashSync(user.Password, 10);
 
 		// Create a new user object
 		const newUser = {
 			Username: user.Username,
 			Password: hashedPassword,
+			//testing purposes
+			RegPassword: user.Password,
 			Name: user.Name,
 		};
 

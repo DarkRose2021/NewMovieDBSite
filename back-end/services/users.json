@@ -1,12 +1,8 @@
 [
   {
-    "Username": "test",
-    "Password": "$2a$10$2x5GjFaeS400guMyHjboWupZL1FmfAJaHfO0ISy6Cc1d7QjCtv6Xq",
-    "Name": "user"
-  },
-  {
-    "Username": "testing",
-    "Password": "$2a$10$dL4Nic65LHCBOTuhkZz7qOiUnauvObiNZt0vmzWkwDnyw9zBaCmAm",
+    "Username": "testing3222",
+    "Password": "$2a$10$ZwnWP5oiscTVvhmYU.hoqul0MzjdIVXXK2WZ2UXbcsD388ekWVfjC",
+    "RegPassword": "test123",
     "Name": "user"
   }
 ]
