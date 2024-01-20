@@ -1,15 +1,20 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
+const express = require("express");
 
-app.use(bodyParser.json())
+const cors = require("cors");
+const port = 8080;
+const app = express();
 
-//init routes 
-require('../routes/login')(app);
-require('../routes/user')(app);
-require('../routes/movieapi')(app);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
-//start server
-app.listen(8080, function () {
-  console.log('Server is started')
+// Load environment variables
+require('dotenv').config();
+
+// Routes
+require("./routes/userRoutes")(app);
+require("./routes/movieRoutes")(app);
+
+app.listen(port, () => {
+  console.log(`Connected to port ${port}`);
 });
