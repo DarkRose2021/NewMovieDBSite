@@ -1,52 +1,52 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './index.scss';
-import reportWebVitals from './reportWebVitals';
-import NavBar from './Components/Navbar';
-import Home from './Components/Home';
-import Login from './Components/Login';
-import SignUp from './Components/SignUp';
-import Search from './Components/Search';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./index.scss";
+import reportWebVitals from "./reportWebVitals";
+import NavBar from "./Components/Navbar";
+import Home from "./Components/Home";
+import Login from "./Components/Login";
+import SignUp from "./Components/SignUp";
+import Search from "./Components/Search";
 
-const url = "http://localhost:8080"
+const url = "http://localhost:8080";
 
 const router = createBrowserRouter([
-  {
-    //Home page 
-    path:'/',
-    element: <>
-      <NavBar />
-    </>
-  },
-  {
-    //Login 
-    path:"/login",
-    element: <>
-      <NavBar />
-      <Login />
-    </>
+	{
+		//Home page
+		path: "/",
+		element: (
+			<>
+				<NavBar siteName="My Website" contentComponent={<Home />} />
+			</>
+		),
+	},
+	{
+		//Login
+		path: "/login",
+		element: (
+			<>
+				<NavBar siteName="My Website" contentComponent={<Login />} />
+			</>
+		),
+	},
+	{
+		//Signup
+		path: "/signup",
+		element: (
+			<>
+				<NavBar siteName="My Website" contentComponent={<SignUp />} />
+			</>
+		),
+	},
+]);
 
-  },
-  {
-    //Signup
-    path: "/signup",
-    element: <>
-      <NavBar />
-      <SignUp />
-    </>
-  },
-
-])
-
-
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router}/>  
-    <Search />
-</React.StrictMode>
+	<React.StrictMode>
+		<RouterProvider router={router} />
+		<Search />
+	</React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

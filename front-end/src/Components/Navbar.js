@@ -4,7 +4,7 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import Home from "./Home";
 import Search from "./Search";
 
-const NavBar = () => {
+const NavBar = ({ siteName, contentComponent }) => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 
 	const openNav = () => {
@@ -36,7 +36,7 @@ const NavBar = () => {
 					<Navbar.Toggle />
 					<Navbar.Collapse className="justify-content-between">
 						<Navbar.Text className="mx-auto">
-							<h2>Name of the Site</h2>
+							<h2>{siteName}</h2>
 						</Navbar.Text>
 						<Navbar.Text>
 							{/* Change to a toggle to show login   signup when not logged in */}
@@ -48,7 +48,7 @@ const NavBar = () => {
 
 			<div id="main">
 				{/* Content */}
-				<Home />
+				{contentComponent}
 			</div>
 		</>
 	);
