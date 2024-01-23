@@ -1,8 +1,8 @@
 @import "./index.scss";
 
-body{
-  background-color: $bg;
-  color: $color;
+body {
+	background-color: $bg;
+	color: $color;
 }
 
 .sidebar {
@@ -54,33 +54,32 @@ nav {
 	.nav-link {
 		color: $color !important;
 	}
-  .navbar-text{
-    margin-right: 1%;
-    color: $color;
-  }
-  .openbtn {
-    font-size: 20px;
-    cursor: pointer;
-    color: $color;
-    padding: 15px;
-    border: none;
-    &:hover {
-      color: $hover;
-    }
-  }
+	.navbar-text {
+		margin-right: 1%;
+		color: $color;
+	}
+	.openbtn {
+		font-size: 20px;
+		cursor: pointer;
+		color: $color;
+		padding: 15px;
+		border: none;
+		&:hover {
+			color: $hover;
+		}
+	}
 }
 
 .navbar > .container {
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
+	max-width: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 .navbar {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
-
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
