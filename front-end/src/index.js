@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
-import App from './App';
 import NavBar from './Components/Navbar';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
+import Search from './Components/Search';
 
 const url = "http://localhost:8080"
 
@@ -46,7 +46,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <RouterProvider router={router}/>   */}
-    <NavBar />
+    <Search />
 </React.StrictMode>
 );
 
