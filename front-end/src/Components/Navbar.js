@@ -14,9 +14,9 @@ const NavBar = ({ siteName, contentComponent }) => {
 	return (
 		<>
 			<div id="mySidebar" className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-				<a href="#">About</a>
-				<a href="#">Services</a>
-				<a href="#">Clients</a>
+				<a href="/login">Login</a>
+				<a href="/signup">Sign Up</a>
+				<a href="/">Home</a>
 				<a href="#">Contact</a>
 			</div>
 
@@ -27,17 +27,21 @@ const NavBar = ({ siteName, contentComponent }) => {
 						onClick={openNav}
 						style={{ marginLeft: "1%", paddingLeft: "0" }}
 					>
+			
 						{sidebarOpen ? (
 							<i className="bi bi-x-lg h2"></i>
 						) : (
 							<i className="bi bi-list h2"></i>
 						)}
+
 					</Navbar.Brand>
 					<Navbar.Toggle />
 					<Navbar.Collapse className="justify-content-between">
 						<Navbar.Text className="mx-auto">
 							<h2>{siteName}</h2>
 						</Navbar.Text>
+						<Search />
+
 						<Navbar.Text>
 							{/* Change to a toggle to show login   signup when not logged in */}
 							<i className="bi bi-person-circle h1"></i>
