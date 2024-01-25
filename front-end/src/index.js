@@ -8,6 +8,7 @@ import Home from "./Components/Home";
 import Login from "./Components/Login";
 import SignUp from "./Components/SignUp";
 import Search from "./Components/Search";
+import Movie from "./Components/Movie";
 
 const url = "http://localhost:8080";
 
@@ -38,6 +39,14 @@ const router = createBrowserRouter([
 				<NavBar siteName="My Website" contentComponent={<SignUp />} />
 			</>
 		),
+	},
+	{
+		path: "/movie",
+		element: (
+			<> 
+				<NavBar siteName="My Website" contentComponent={<Movie />} />
+			</>
+		)
 	},
 ]);
 

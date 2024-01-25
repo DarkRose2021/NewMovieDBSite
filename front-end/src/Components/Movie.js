@@ -1,5 +1,5 @@
 //all the information that is gotten from the api with a button that lets you leave a review if your signed in
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Movie = () => {
     //api call: `http://localhost:8080/oneMovie/${movieID}`
@@ -15,8 +15,51 @@ const Movie = () => {
     //     ]
     // }
 
+
+    //get stuff back from api 
+    //put it in variables 
+    //display the information
+
+    //filled star : <i class="bi bi-star-fill"></i>
+
+    //empty star : <i class="bi bi-star"></i>
+
+    //partical star : <i class="bi bi-star-half"></i>
+
+
+
+//!!!!!!!!!!!!******************************
+//        Different ways to get movie id
+//              Click on the movie card 
+//              search for specific movie 
+//
+    const [movieData, setMovieData] = useState(null);
+    const [movieID, seetMovieID] = useState();
+
+    useEffect(() => {
+        const fetchMovieData = async () => {
+            try{
+                const response = await fetch(`http:localhost:8080/oneMovie/${movieID}`);
+                const data = await response.json();
+                setMovieData(data);
+            }
+            catch(err){
+                console.error("Error fetching movie data: ", err)
+            }
+        };
+        fetchMovieData();
+    }, [movieID]);
+
+
 	return (
-    <div>Movie</div>
+    <div>
+        {movieData ? (
+            <img src=""
+        )}    
+        
+        
+        
+    </div>
     );
 };
 
