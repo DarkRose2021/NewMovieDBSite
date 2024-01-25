@@ -1,5 +1,14 @@
 const bcryptjs = require("bcryptjs");
 const userService = require("../services/userService");
+const jwt = require('jsonwebtoken'); //token for sign in
+const crypto =  require('crypto');
+
+
+const generateSecretKey = () => {
+	return crypto.randomBytes(16).toString('hex');
+  };
+
+  const secretKey = generateSecretKey(); //secret key for token
 
 module.exports = (app) => {
 	app.post("/login", async (req, res) => {
@@ -25,12 +34,14 @@ module.exports = (app) => {
 		console.log("Is password valid:", isPasswordValid);
 
 		if (isPasswordValid) {
+			const token = jwt.sign({username: username}, secretKey, {expiresIn: '1h'});
 			res.json({
 				User: {
 					Username: user.Username,
 					Name: user.Name,
 				},
 				Message: "Login successful",
+				token: token
 			});
 		} else {
 			res.json({
