@@ -36,3 +36,53 @@ $search: #868bb4; //Search Bar
 	background-color: $search;
 	color: #FAFAFA ;
 }
+
+.form-control{
+	background-color: $search;
+	width: 25%;
+	height: fit-content;
+	text-align: center;
+	font-weight: bold;
+	display: block;
+	border-radius: 40px;
+	margin: 0 auto; 
+	font-size: 2em;
+	padding: 3%;
+		 .placeholder{
+		   color: $gold;
+		 }
+}   
+
+.SignInForm{
+	margin-top: 2%;      
+  	border-radius: 100px;
+	
+	.Title {
+		margin-top: 4%;
+		font-size: 2em;
+		font-weight: bold;
+	  }
+
+	  .formLabel {
+		font-weight: bold;
+		font-size: 1.2em;
+	  }
+	
+	  .form-control {
+		border-radius: 100px;
+		border: none;
+	  }
+	
+	  .showPassword {
+		padding-right: 10px;
+	  }
+	
+	.icon-eye {
+		/* Position the eye icon */
+		position: absolute;
+		top: 50%;
+		right: 10px;
+		transform: translateY(-50%);
+		cursor: pointer;
+	  }
+}
