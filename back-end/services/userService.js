@@ -69,23 +69,35 @@ module.exports = {
 	},
 	deleteReview: (reviewId) => {
 		const existingReviews = require(reviewFilePath);
-	
+
 		// Convert reviewId to a number (assuming Id is a number)
 		const reviewIdNumber = Number(reviewId);
-	
+
 		// Find the index of the review with the specified reviewId
-		const reviewIndex = existingReviews.findIndex(review => review.Id === reviewIdNumber);
-	
+		const reviewIndex = existingReviews.findIndex(
+			(review) => review.Id === reviewIdNumber
+		);
+
 		if (reviewIndex !== -1) {
 			// Remove the review using splice
 			existingReviews.splice(reviewIndex, 1);
-	
-			fs.writeFileSync(reviewFilePath, JSON.stringify(existingReviews, null, 2));
-	
+
+			fs.writeFileSync(
+				reviewFilePath,
+				JSON.stringify(existingReviews, null, 2)
+			);
+
 			console.log(`Review with Id ${reviewIdNumber} deleted successfully.`);
 		} else {
 			console.log(`Review with Id ${reviewIdNumber} not found.`);
 		}
-	}
-	
+	},
+	allReviews: () => {
+		const allReviews = require(reviewFilePath);
+		return allReviews;
+	},
+	allUsers: () => {
+		const allUsers = require(usersFilePath);
+		return allUsers;
+	},
 };
