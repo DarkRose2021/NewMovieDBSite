@@ -40,6 +40,7 @@ const NavBar = ({ siteName, contentComponent }) => {
 						<Navbar.Text className="mx-auto">
 							<h2>{siteName}</h2>
 						</Navbar.Text>
+						{/* why in the nav? the search bar doesn't need to be on all the pages -Katie */}
 						<Search />
 
 						<Navbar.Text>
