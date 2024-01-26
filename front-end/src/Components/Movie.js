@@ -34,12 +34,12 @@ const Movie = () => {
 //              search for specific movie 
 //
     const [movieData, setMovieData] = useState(null);
-    const [movieID, seetMovieID] = useState();
+    const [movieID, setMovieID] = useState();
 
     useEffect(() => {
         const fetchMovieData = async () => {
             try{
-                const response = await fetch(`http:localhost:8080/oneMovie/${movieID}`);
+                const response = await fetch(`http:localhost:8080/oneMovie/955916`);
                 const data = await response.json();
                 setMovieData(data);
             }
@@ -51,12 +51,45 @@ const Movie = () => {
     }, [movieID]);
 
 
+//************
+    //Render Stars function generated from chatGPT
+
+        // Function to generate star icons based on the average rating
+        const renderStars = (averageRating) => {
+            const stars = [];
+            const filledStars = Math.floor(averageRating / 2);
+            const hasHalfStar = averageRating % 2 !== 0;
+
+            for (let i = 0; i < filledStars; i++) {
+            stars.push(<i key={i} className="bi bi-star-fill"></i>);
+            }
+
+            if (hasHalfStar) {
+            stars.push(<i key="half" className="bi bi-star-half"></i>);
+            }
+
+            const emptyStars = 5 - filledStars - (hasHalfStar ? 1 : 0);
+            for (let i = 0; i < emptyStars; i++) {
+            stars.push(<i key={`empty-${i}`} className="bi bi-star"></i>);
+            }
+
+            return stars;
+        };
+//
+
+  
+
+
 	return (
     <div>
-        {movieData ? (
-            <img src=""
-        )}    
-        
+
+       //Movie Poster 
+       //Movie discription 
+        //Genre 
+        //Actors 
+        //amount of stars : renderStars()
+        //if signed in button to write a review as long as they havent written one for that movie before
+        //if not have button that takes takes to sign up form
         
         
     </div>
