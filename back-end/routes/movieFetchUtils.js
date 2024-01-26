@@ -64,6 +64,24 @@ module.exports = {
 		}
 	},
 
+	searchTitles: async (title) =>{
+		const url = `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=1`
+		const searchResponse = await fetch(url, {
+			method: "GET",
+			headers: commonHeaders,
+		});
+		return await searchResponse.json();
+	},
+
+	searchActors: async (actor) =>{
+		const url = `https://api.themoviedb.org/3/search/person?query=${actor}&include_adult=false&language=en-US&page=1`
+		const searchResponse = await fetch(url, {
+			method: "GET",
+			headers: commonHeaders,
+		});
+		return await searchResponse.json();
+	},
+
 	updateMovieDetails: (movie, genreMapping, castJson) => {
 		return {
 			title: movie.title,
@@ -78,6 +96,17 @@ module.exports = {
     updateOneMovieDetails: (movie, castJson) => {
 		return {
 			title: movie.title,
+			id: movie.id,
+			poster_path: movie.poster_path,
+			vote_average: Math.round(movie.vote_average * 0.5),
+			release_date: movie.release_date,
+			actors: castJson.cast.map((actor) => actor.name),
+		};
+	},
+	updateActorMovieDetails: (actor, genreMapping) => {
+		const actorsOnly = actor.results.filter(result => result.known_for_department === "Acting");
+		return {
+			name: actorsOnly.title,
 			id: movie.id,
 			poster_path: movie.poster_path,
 			vote_average: Math.round(movie.vote_average * 0.5),
