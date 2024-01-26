@@ -89,4 +89,18 @@ module.exports = (app) => {
 
 		res.json({ Message: "Review Deleted" });
 	});
+
+	app.get("/allReviews", (req, res) =>{
+		res.json({
+			Message: "All Reviews",
+			Reviews: userService.allReviews()
+		})
+	})
+
+	app.get("/allUsers", (req, res) =>{
+		res.json({
+			Message: "All Users",
+			Reviews: userService.allUsers()
+		})
+	})
 };
