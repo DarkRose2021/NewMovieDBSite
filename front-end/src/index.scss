@@ -21,6 +21,12 @@ $search: #868bb4; //Search Bar
 	justify-content: center;
 }
 
+
+.navBar{
+	margin-Left: "0";
+	padding-Left: "0" 
+}
+
 .searchBar{
 	background-color:$search;
 	color: #FAFAFA;
@@ -91,4 +97,5 @@ $search: #868bb4; //Search Bar
 	width: 18rem;
 	color: $color;
 	background-color: $space-cadet-2;
+	z-index: -2;
 }

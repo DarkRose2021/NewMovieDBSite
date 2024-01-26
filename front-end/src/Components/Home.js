@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Home = () => {
   //api call: `http://localhost:8080/allMovies
@@ -21,15 +21,39 @@ const Home = () => {
           //array of names
 //     ]
 // }
-  return (
-    <div>Home
 
-    <div class="card">
-      <img src="..." class="card-img-top" alt="..."/>
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+const [movieDetails, setMovieDetails] = useState('');
+
+
+useEffect(() => {
+  const fetching = async () => {
+    try{
+     const response = fetch("http://localhost:8080/allMovies");
+     
+     if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+     const data = (await response).json();
+     console.log("Data recieved: ", data)
+     
+     setMovieDetails(data); 
+    }
+    catch(err){
+      console.error("Error catching from api:", err)
+    }
+  };
+  fetching();
+  }, []);
+
+
+  return (
+    <div>
+    <div className="card">
+      <img src="..." class="card-img-top" alt="Movie Title"/>
+      <div className="card-body">
+        <h5 className="card-title">Movie Title</h5>
+        <p className="card-text">Description of the movie</p>
       </div>
     </div>
 

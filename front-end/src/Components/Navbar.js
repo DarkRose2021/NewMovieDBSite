@@ -19,7 +19,7 @@ const NavBar = ({ siteName, contentComponent }) => {
 				<a href="/movie">Movie</a>
 			</div>
 
-			<Navbar className="">
+			<Navbar className="navBar">
 				<Container>
 					<Navbar.Brand
 						className="openbtn"
@@ -32,7 +32,7 @@ const NavBar = ({ siteName, contentComponent }) => {
 									)}
 							</div>
 					</Navbar.Brand>
-					
+
 					<Navbar.Toggle />
 					<Navbar.Collapse className="justify-content-between">
 						<Navbar.Text className="mx-auto">
