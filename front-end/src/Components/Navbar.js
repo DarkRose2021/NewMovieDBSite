@@ -17,24 +17,22 @@ const NavBar = ({ siteName, contentComponent }) => {
 				<a href="/login">Login</a>
 				<a href="/signup">Sign Up</a>
 				<a href="/movie">Movie</a>
-				<a href="#">Contact</a>
 			</div>
 
-			<Navbar style={{ marginLeft: "0", paddingLeft: "0" }}>
+			<Navbar className="">
 				<Container>
 					<Navbar.Brand
 						className="openbtn"
-						onClick={openNav}
-						style={{ marginLeft: "1%", paddingLeft: "0" }}
-					>
-			
-						{sidebarOpen ? (
-							<i className="bi bi-x-lg h2"></i>
-						) : (
-							<i className="bi bi-list h2"></i>
-						)}
-
+						onClick={openNav}>
+						<div>
+							{sidebarOpen ? (
+								<i className="bi bi-x-lg h2"></i>
+									) : (
+								<i className="bi bi-list h2"></i>
+									)}
+							</div>
 					</Navbar.Brand>
+					
 					<Navbar.Toggle />
 					<Navbar.Collapse className="justify-content-between">
 						<Navbar.Text className="mx-auto">
