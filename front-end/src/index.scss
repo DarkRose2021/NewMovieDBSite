@@ -38,6 +38,20 @@ $search: #868bb4; //Search Bar
 	}
 
 }
+
+.movieCard{
+	width: 18rem;
+	color: $color;
+	background-color: $space-cadet-2;
+	z-index: -2;
+	margin: 1%;
+	height: 50%;
+	text-align: center;
+	.movieTitle{
+		padding: 20px;
+	}
+}
+
 .searchButon{
 	background-color: $search;
 	color: #FAFAFA ;
@@ -91,11 +105,4 @@ $search: #868bb4; //Search Bar
 		transform: translateY(-50%);
 		cursor: pointer;
 	  }
-}
-
-.card{
-	width: 18rem;
-	color: $color;
-	background-color: $space-cadet-2;
-	z-index: -2;
 }

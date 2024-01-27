@@ -48,12 +48,12 @@ useEffect(() => {
 
 
   return (
-    <div>
-    <div className="card">
-      <img src="..." class="card-img-top" alt="Movie Title"/>
+    <div className='movieCard'>
+    <div className="movie">
+      <img src="..." className="moviePic" alt="Movie Title"/>
       <div className="card-body">
-        <h5 className="card-title">Movie Title</h5>
-        <p className="card-text">Description of the movie</p>
+        <h5 className="movieTitle">Movie Title</h5>
+        <p className="movieDescription">Description of the movie</p>
       </div>
     </div>
 
