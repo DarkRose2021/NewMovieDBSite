@@ -10,14 +10,35 @@ const SignUp = () => {
         formState: {errors},
         watch} = useForm();
         const [showPassword, setShowPassword] = useState(false);
-
+        
+        const password = watch(["password", ""]);
+        
         const togglePassword = () => {
             setShowPassword(!showPassword);
           };
-        const password = watch(["password", ""]);
-        
 
-        const onSubmit = (data) => console.log(data);
+
+        const onSubmit = async(data) => {
+            console.log("Data sending: ", data)
+            try{
+                const response = await fetch("http://localhost:8080/signup",{
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data),
+                });
+                if(!response.ok){
+                    throw new Error(`HTTP Error! Status: ${response.status}`)
+                }
+                const result = await response.json();
+                console.log("Backend response:", result);
+            
+            } 
+            catch (error) {
+                console.error("Error sending data to the backend:", error);
+            }
+        }
 
     //const username = req.body.username;
 		// const password = req.body.password;
@@ -63,9 +84,6 @@ const SignUp = () => {
 
 
             <input type="submit" />
-
-
-
         </form>
 
 
