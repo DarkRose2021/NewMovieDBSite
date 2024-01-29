@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Search from './Search';
 
 const Home = () => {
   //api call: `http://localhost:8080/allMovies
@@ -67,10 +68,16 @@ useEffect(() => {
 
 
   return (
+   <div>
+    <Search />
+
+   
     <div className='movieCard'>
+      {/* //maps over all the movies that are in array then it displays the information  */}
       {movieDetails.localeCompare((movie) => {
         <div className="movie" key={movie.id}>
               <img src={`http://example.com/${movie.poster_path}`} className="moviePic" alt={movie.tittle}/>
+         
           <div className="card-body">
               <h5 className="movieTitle">Movie Title: {movie.tittle}</h5>
               <p className="movieDescription">Movie Release Date: {movie.release.date}</p>
@@ -80,15 +87,8 @@ useEffect(() => {
 
 
       })}
-
-
-
-
-     
-
-
-
-    </div>
+    </div> 
+  </div>
   )
 }
 
