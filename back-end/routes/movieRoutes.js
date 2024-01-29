@@ -13,24 +13,28 @@ module.exports = (app) => {
 		try {
 			// Fetch Genre Data
 			const genreJson = await fetchGenres();
-			const genreMapping = genreJson.genres.reduce((acc, genre) => {
-				acc[genre.id] = genre.name;
-				return acc;
-			}, {});
+			const genreMapping = (genreJson.genres && genreJson.genres.length > 0)
+				? genreJson.genres.reduce((acc, genre) => {
+						acc[genre.id] = genre.name;
+						return acc;
+				  }, {})
+				: {};
 
 			// Fetch Movie Data
 			const movieJson = await fetchMovieData();
 
 			// Fetch and Update Movie Data with Genres and Actors concurrently
-			const moviesWithDetails = await Promise.all(
-				movieJson.results.map(async (movie) => {
-					// Fetch Cast Information
-					const castJson = await fetchCastInformation(movie.id);
+			const moviesWithDetails = (movieJson.results && movieJson.results.length > 0)
+				? await Promise.all(
+						movieJson.results.map(async (movie) => {
+							// Fetch Cast Information
+							const castJson = await fetchCastInformation(movie.id);
 
-					// Update Movie Data with Genres and Actors
-					return updateMovieDetails(movie, genreMapping, castJson);
-				})
-			);
+							// Update Movie Data with Genres and Actors
+							return updateMovieDetails(movie, genreMapping, castJson);
+						})	
+				  )
+				: [];
 
 			res.json(moviesWithDetails);
 		} catch (error) {

@@ -28,19 +28,38 @@ const [movieDetails, setMovieDetails] = useState('');
 useEffect(() => {
   const fetching = async () => {
     try{
+      console.log("Going for data");
      const response = fetch("http://localhost:8080/allMovies");
-     
+      
+     console.log("Data fetching")
      if (!response.ok) {
+      console.log("Response was ill")
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
-     const data = (await response).json();
+    console.log("awiating data")
+     const data = await response.json();
+      //////////////////Debuging from ChatGPT/////////////////////
+      console.log("Full response:", response);
      console.log("Data recieved: ", data)
      
-     setMovieDetails(data); 
+     console.log("Checking if right form")
+     if (Array.isArray(data)) {
+      console.log("It is")
+      setMovieDetails(data);
+    } else {
+      console.log("it isnt")
+      console.error("Invalid data format received from API.");
+    }
     }
     catch(err){
       console.error("Error catching from api:", err)
+
+    
+
+
+      if (err instanceof Error) {
+        console.log("Response status:", err.message.split(":")[1].trim());
+      }
     }
   };
   fetching();
@@ -49,13 +68,23 @@ useEffect(() => {
 
   return (
     <div className='movieCard'>
-    <div className="movie">
-      <img src="..." className="moviePic" alt="Movie Title"/>
-      <div className="card-body">
-        <h5 className="movieTitle">Movie Title</h5>
-        <p className="movieDescription">Description of the movie</p>
-      </div>
-    </div>
+      {movieDetails.localeCompare((movie) => {
+        <div className="movie" key={movie.id}>
+              <img src={`http://example.com/${movie.poster_path}`} className="moviePic" alt={movie.tittle}/>
+          <div className="card-body">
+              <h5 className="movieTitle">Movie Title: {movie.tittle}</h5>
+              <p className="movieDescription">Movie Release Date: {movie.release.date}</p>
+          </div>
+
+        </div>
+
+
+      })}
+
+
+
+
+     
 
 
 
