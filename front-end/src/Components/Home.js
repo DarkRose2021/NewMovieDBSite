@@ -30,37 +30,26 @@ useEffect(() => {
   const fetching = async () => {
     try{
       console.log("Going for data");
-     const response = fetch("http://localhost:8080/allMovies");
-      
-     console.log("Data fetching")
-     if (!response.ok) {
-      console.log("Response was ill")
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    console.log("awiating data")
-     const data = await response.json();
-      //////////////////Debuging from ChatGPT/////////////////////
-      console.log("Full response:", response);
-     console.log("Data recieved: ", data)
-     
-     console.log("Checking if right form")
-     if (Array.isArray(data)) {
-      console.log("It is")
-      setMovieDetails(data);
-    } else {
-      console.log("it isnt")
-      console.error("Invalid data format received from API.");
-    }
-    }
-    catch(err){
-      console.error("Error catching from api:", err)
-
-    
-
-
-      if (err instanceof Error) {
-        console.log("Response status:", err.message.split(":")[1].trim());
-      }
+      fetch("http://localhost:8080/allMovies", {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((resp) => {
+        if (!resp.ok) {
+          throw new Error(`HTTP error! Status: ${resp.status}`);
+        }
+        return resp.json();
+      })
+      .then((data) => {
+        console.log("Data received: ", data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+    } catch (error) {
+      console.error("Error outside of the fetch:", error);
     }
   };
   fetching();
