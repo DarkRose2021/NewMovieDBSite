@@ -1,0 +1,112 @@
+//Vars
+$color: #cccccc; //text color
+$gold: #d1ac00; //stars
+$verdigris: #53b3ae; //accent color
+$lapis-lazuli: #105e8e; //accent color
+$bg: #2d3047; //bg color
+$space-cadet-2: #333752; //card/container background colors
+$nav: #1c1e2d; //nav color
+$sidebar: #161824; //sidebar color
+$hover: #858585;
+$search: #868bb4; //Search Bar 
+
+//Imports
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+//Mixins
+@mixin flexCenter {
+	display: flex;
+	align-content: center;
+	justify-content: center;
+}
+
+
+.navBar{
+	margin-Left: "0";
+	padding-Left: "0" 
+}
+
+.searchBar{
+	background-color:$search;
+	color: #FAFAFA;
+	text-align: center;
+	font-size: 1.3em;
+	border-radius: 10px;
+	&::placeholder{
+		color: #FAFAFA;
+	}
+
+}
+
+.movieCard{
+	width: 18rem;
+	color: $color;
+	background-color: $space-cadet-2;
+	z-index: -2;
+	margin: 1%;
+	height: 50%;
+	text-align: center;
+	padding: 20px;
+	.movieTitle{
+		padding: 10px;
+	}
+	.movieDescription{
+		padding: 10px;
+	}
+}
+
+.searchButon{
+	background-color: $search;
+	color: #FAFAFA ;
+}
+
+.form-control{
+	background-color: $search;
+	width: 25%;
+	height: fit-content;
+	text-align: center;
+	font-weight: bold;
+	display: block;
+	border-radius: 30px;
+	margin: 0 auto; 
+	font-size: 2em;
+	padding: 3%;
+		 .placeholder{
+		   color: $gold;
+		 }
+}   
+
+.SignInForm{
+	margin-top: 2%;      
+  	border-radius: 100px;
+	
+	.Title {
+		margin-top: 4%;
+		font-size: 2em;
+		font-weight: bold;
+	  }
+
+	  .formLabel {
+		font-weight: bold;
+		font-size: 1.2em;
+	  }
+	
+	  .form-control {
+		border-radius: 100px;
+		border: none;
+	  }
+	
+	  .showPassword {
+		padding-right: 10px;
+	  }
+	
+	.icon-eye {
+		/* Position the eye icon */
+		position: absolute;
+		top: 50%;
+		right: 10px;
+		transform: translateY(-50%);
+		cursor: pointer;
+	  }
+}
