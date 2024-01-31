@@ -23,7 +23,7 @@ const Home = () => {
 //     ]
 // }
 
-const [movieDetails, setMovieDetails] = useState('');
+const [movieDetails, setMovieDetails] = useState([]);
 
 
 useEffect(() => {
@@ -44,6 +44,12 @@ useEffect(() => {
       })
       .then((data) => {
         console.log("Data received: ", data);
+        if (Array.isArray(data)) {
+          setMovieDetails(data);
+          console.log("Movie contains:", movieDetails)
+        } else {
+          console.error("Invalid data format received:", data);
+        }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -53,31 +59,25 @@ useEffect(() => {
     }
   };
   fetching();
-  }, []);
+  }, []); //only runs 1 time 
 
 
   return (
-   <div>
+    <>
     <Search />
-
-   
     <div className='movieCard'>
-      {/* //maps over all the movies that are in array then it displays the information  */}
-      {movieDetails.localeCompare((movie) => {
+      {/* Maps over all the movies in the array and displays information for each */}
+      {movieDetails.map((movie) => (
         <div className="movie" key={movie.id}>
-              <img src={`http://example.com/${movie.poster_path}`} className="moviePic" alt={movie.tittle}/>
-         
+          <img src={`http://example.com/${movie.poster_path}`} className="moviePic" alt={movie.title} />
           <div className="card-body">
-              <h5 className="movieTitle">Movie Title: {movie.tittle}</h5>
-              <p className="movieDescription">Movie Release Date: {movie.release.date}</p>
+            <h5 className="movieTitle">Movie Title: {movie.title}</h5>
+            <p className="movieDescription">Movie Release Date: {movie.release_date}</p>
           </div>
-
         </div>
-
-
-      })}
-    </div> 
-  </div>
+      ))}
+    </div>
+  </>
   )
 }
 
