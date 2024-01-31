@@ -9,6 +9,7 @@ const SignUp = () => {
         handleSubmit, 
         formState: {errors},
         watch} = useForm();
+        
         const [showPassword, setShowPassword] = useState(false);
         
         const password = watch(["password", ""]);

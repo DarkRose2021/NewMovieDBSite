@@ -1,21 +1,55 @@
 //Login form that sends to back end that checks if the user used the proper username and password
 import { useEffect, useState } from "react";
 import TokenHook from "./TokenHook";
+import {useForm} from 'react-hook-form'
 
 const Login = () => {
-
+const {
+    register, 
+    handleSubmit, 
+    formState: {errors},
+    watch} = useForm();
     const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const password = watch(["password", ""]);
     const hasToken = TokenHook();
 
     const togglePassword = () => {
         setShowPassword(!showPassword);
       };
 
+     const onSubmit = async(data) => {
+        console.log("Sending data")
+     }
+
     //api call: `http://localhost:8080/login`
 	return (
-        <div container d-flex flex-column justify-content-center align-items-center>
+        <div className="container d-flex flex-column justify-content-center align-items-center">
+
+        <form className="loginForm" onSubmit={handleSubmit}>
+
+             <input {...register("username", {required: "Username is required"})}  placeholder="Username" onChange={(e) => setUsername} />
+
+
+
+            <input {...register("password", 
+                {required: "PAssword is required"})} 
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"/>
+
+            <span className="icon-eye" onClick={togglePassword}>
+                {showPassword ? (
+                    <i className="bi bi-eye"></i>
+                ) : (
+                    <i className="bi bi-eye-slash"></i>
+                )}
+            </span>
+
+            <input type="submit" />
+
+        </form>
+
+{/* 
             <div className="SignInForm">
             
             <h1 className="Title SignInForm">Sign In</h1>
@@ -46,9 +80,9 @@ const Login = () => {
                                 )}
                                 </span>
                         </div>
-                </div>
+                </div> */}
             </div>
-        </div>
+        // </div>
     );
 };
 
