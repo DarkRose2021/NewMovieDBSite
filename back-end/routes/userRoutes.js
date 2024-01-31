@@ -1,11 +1,19 @@
 const bcryptjs = require("bcryptjs");
 const userService = require("../services/userService");
+const jwt = require("jsonwebtoken"); //token for sign in
+const crypto = require("crypto");
+
+const generateSecretKey = () => {
+	return crypto.randomBytes(16).toString("hex");
+};
+
+const secretKey = generateSecretKey(); //secret key for token
 
 module.exports = (app) => {
 	app.post("/login", async (req, res) => {
 		const username = req.body.username;
 		const password = req.body.password;
-//ref dal to send the info to the dal
+		//ref dal to send the info to the dal
 		const user = userService.getUser(username);
 		console.log(user);
 
@@ -25,12 +33,16 @@ module.exports = (app) => {
 		console.log("Is password valid:", isPasswordValid);
 
 		if (isPasswordValid) {
+			const token = jwt.sign({ username: username }, secretKey, {
+				expiresIn: "1h",
+			});
 			res.json({
 				User: {
 					Username: user.Username,
 					Name: user.Name,
 				},
 				Message: "Login successful",
+				token: token,
 			});
 		} else {
 			res.json({
@@ -48,7 +60,7 @@ module.exports = (app) => {
 			Username: username,
 			Password: password,
 			Name: name,
-			Role: ["Client"]
+			Role: ["Client"],
 		};
 
 		//ref dal to send the info to the dal
@@ -64,18 +76,17 @@ module.exports = (app) => {
 		const movieName = req.body.movieName;
 		const starAmount = req.body.starAmount;
 		const textBox = req.body.textBox;
-		const username = req.params.username
+		const username = req.params.username;
 
 		const newReview = {
 			MovieName: movieName,
 			starAmount: starAmount,
 			ReviewTxt: textBox,
-			UserPosted: username
-		}
-//ref dal to send the info to the dal
-		userService.addReview(newReview)
+			UserPosted: username,
+		};
+		//ref dal to send the info to the dal
+		userService.addReview(newReview);
 
-		
 		res.json({
 			User: newReview,
 			Message: "Review Submitted",
@@ -85,22 +96,22 @@ module.exports = (app) => {
 	app.post("/deleteReview/:id", (req, res) => {
 		const id = req.params.id;
 		//ref dal to send the info to the dal
-		userService.deleteReview(id)
+		userService.deleteReview(id);
 
 		res.json({ Message: "Review Deleted" });
 	});
 
-	app.get("/allReviews", (req, res) =>{
+	app.get("/allReviews", (req, res) => {
 		res.json({
 			Message: "All Reviews",
-			Reviews: userService.allReviews()
-		})
-	})
+			Reviews: userService.allReviews(),
+		});
+	});
 
-	app.get("/allUsers", (req, res) =>{
+	app.get("/allUsers", (req, res) => {
 		res.json({
 			Message: "All Users",
-			Reviews: userService.allUsers()
-		})
-	})
+			Reviews: userService.allUsers(),
+		});
+	});
 };
