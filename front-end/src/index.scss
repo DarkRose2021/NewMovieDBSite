@@ -38,22 +38,31 @@ $search: #868bb4; //Search Bar
 	}
 
 }
-
+.movieCards{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	text-decoration: none;
+}
 .movieCard{
-	width: 18rem;
+	width: 25rem;
 	color: $color;
 	background-color: $space-cadet-2;
 	z-index: -2;
 	margin: 1%;
-	height: 50%;
+	height: fit-content;
 	text-align: center;
 	padding: 20px;
-	border-bottom: 6px black;
+	text-decoration: none;
 	.movieTitle{
-		padding: 10px;
+		font-size: 1.5em;
+		padding: 5px;
+		font-weight: bold;
+		text-decoration: none;
+
 	}
 	.movieDescription{
-		padding: 10px;
+		font-size: 1.2em;
 	}
 }
 
