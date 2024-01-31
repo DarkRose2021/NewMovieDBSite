@@ -4,13 +4,34 @@
     "Password": "$2a$10$ZwnWP5oiscTVvhmYU.hoqul0MzjdIVXXK2WZ2UXbcsD388ekWVfjC",
     "RegPassword": "test123",
     "Name": "user",
-    "Role": ["Client"]
+    "Role": [
+      "Client"
+    ]
   },
   {
     "Username": "testing",
     "Password": "$2a$10$px2tEUU3Tqf2eBfdSKVb9ew5LBlCOvkYfRxPcea4YF/Bo5FpjUH6W",
     "RegPassword": "test123",
     "Name": "user",
-    "Role": ["Client"]
+    "Role": [
+      "Client"
+    ]
+  },
+  {
+    "Password": "$2a$10$EK4cmlC..Ms5SUfQiWfW.uVVlz35dgtQxJvBb3AQswJXOdZZd8pDu",
+    "RegPassword": "green",
+    "Name": "purple",
+    "Role": [
+      "Client"
+    ]
+  },
+  {
+    "Username": "Bill",
+    "Password": "$2a$10$8D0GLb9D1EkXWV9qk1xtSO4Z0EiwXnda2tCZnFpVokkkBkoJl0Ajm",
+    "RegPassword": "green",
+    "Name": "purple",
+    "Role": [
+      "Client"
+    ]
   }
 ]
