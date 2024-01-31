@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Search from './Search';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   //api call: `http://localhost:8080/allMovies
@@ -67,13 +68,15 @@ useEffect(() => {
     <div className='movieCards'>
       {/* Maps over all the movies in the array and displays information for each */}
       {movieDetails.map((movie) => (
-        <div className="movieCard" key={movie.id}>
+      <Link to={`/movie/${movie.id}`}key={movie.id}>
+        <div className="movieCard">
           <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className="moviePic" alt={movie.title} />
           <div className="card-body">
             <h5 className="movieTitle">{movie.title}</h5>
             <p className="movieDescription">Released: {movie.release_date}</p>
           </div>
         </div>
+        </Link>
       ))}
     </div>
   </>

@@ -41,7 +41,7 @@ const router = createBrowserRouter([
 		),
 	},
 	{
-		path: "/movie",
+		path: "/movie/:id",
 		element: (
 			<> 
 				<NavBar siteName="My Website" contentComponent={<Movie />} />
