@@ -46,7 +46,6 @@ useEffect(() => {
         console.log("Data received: ", data);
         if (Array.isArray(data)) {
           setMovieDetails(data);
-          console.log("Movie contains:", movieDetails)
         } else {
           console.error("Invalid data format received:", data);
         }
@@ -65,14 +64,14 @@ useEffect(() => {
   return (
     <>
     <Search />
-    <div className='movieCard'>
+    <div className='movieCards'>
       {/* Maps over all the movies in the array and displays information for each */}
       {movieDetails.map((movie) => (
-        <div className="movie" key={movie.id}>
-          <img src={`http://example.com/${movie.poster_path}`} className="moviePic" alt={movie.title} />
+        <div className="movieCard" key={movie.id}>
+          <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className="moviePic" alt={movie.title} />
           <div className="card-body">
-            <h5 className="movieTitle">Movie Title: {movie.title}</h5>
-            <p className="movieDescription">Movie Release Date: {movie.release_date}</p>
+            <h5 className="movieTitle">{movie.title}</h5>
+            <p className="movieDescription">Released: {movie.release_date}</p>
           </div>
         </div>
       ))}
