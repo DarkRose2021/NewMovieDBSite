@@ -14,7 +14,7 @@ module.exports = {
 				headers: commonHeaders,
 			});
 			const genreJson = await genreResponse.json();
-	
+
 			// Ensure that genreJson.genres is an array
 			if (Array.isArray(genreJson.genres)) {
 				return genreJson;
@@ -58,16 +58,15 @@ module.exports = {
 			const movieDetails = await movieResponse.json();
 
 			// Fetch cast information
-            return movieDetails
-			
+			return movieDetails;
 		} catch (error) {
 			console.error("Error fetching movie details:", error);
 			throw new Error("Failed to fetch movie details");
 		}
 	},
 
-	searchTitles: async (title) =>{
-		const url = `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=1`
+	searchTitles: async (title) => {
+		const url = `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=1`;
 		const searchResponse = await fetch(url, {
 			method: "GET",
 			headers: commonHeaders,
@@ -75,8 +74,17 @@ module.exports = {
 		return await searchResponse.json();
 	},
 
-	searchActors: async (actor) =>{
-		const url = `https://api.themoviedb.org/3/search/person?query=${actor}&include_adult=false&language=en-US&page=1`
+	searchActors: async (actor) => {
+		const url = `https://api.themoviedb.org/3/search/person?query=${actor}&include_adult=false&language=en-US&page=1`;
+		const searchResponse = await fetch(url, {
+			method: "GET",
+			headers: commonHeaders,
+		});
+		return await searchResponse.json();
+	},
+
+	searchGenres: async (genre) => {
+		const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&with_keywords=${genre}`;
 		const searchResponse = await fetch(url, {
 			method: "GET",
 			headers: commonHeaders,
@@ -91,11 +99,12 @@ module.exports = {
 			poster_path: movie.poster_path,
 			vote_average: Math.round(movie.vote_average * 0.5),
 			release_date: movie.release_date,
-			genres:  movie.genre_ids.map((genreId) => genreMapping[genreId]),
+			genres: movie.genre_ids.map((genreId) => genreMapping[genreId]),
 			actors: castJson.cast.map((actor) => actor.name),
 		};
 	},
-    updateOneMovieDetails: (movie, castJson) => {
+
+	updateOneMovieDetails: (movie, castJson) => {
 		return {
 			title: movie.title,
 			id: movie.id,
@@ -105,15 +114,30 @@ module.exports = {
 			actors: castJson.cast.map((actor) => actor.name),
 		};
 	},
-	updateActorMovieDetails: (actor, genreMapping) => {
-		const actorsOnly = actor.results.filter(result => result.known_for_department === "Acting");
-		return {
-			name: actorsOnly.title,
-			id: movie.id,
-			poster_path: movie.poster_path,
-			vote_average: Math.round(movie.vote_average * 0.5),
-			release_date: movie.release_date,
-			actors: castJson.cast.map((actor) => actor.name),
-		};
+
+	// Finished
+	updateActorMovieDetails: (actors, genreMapping) => {
+			const actorsData = actors.results.filter(
+				(result) => result.known_for_department === "Acting"
+			);
+			const filteredActors = actorsData.map((actor) => {
+				const filteredKnownFor = actor.known_for.map((movie) => {
+					return {
+						id: movie.id,
+						movie_name: movie.title,
+						genres: movie.genre_ids.map((genreId) => genreMapping[genreId]),
+						poster_path: movie.poster_path,
+						vote_average: Math.round(movie.vote_average * 0.5),
+						release_date: movie.release_date,
+					};
+				});
+
+				return {
+					name: actor.name,
+					known_for: filteredKnownFor,
+				};
+			});
+
+			return filteredActors;
 	},
 };
