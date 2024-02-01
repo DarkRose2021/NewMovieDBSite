@@ -6,7 +6,9 @@ const {
 	fetchOneMovie,
 	updateOneMovieDetails,
 	searchTitles,
-	searchActors
+	searchActors,
+	searchGenres,
+	updateActorMovieDetails
 } = require("./movieFetchUtils");
 
 module.exports = (app) => {
@@ -59,9 +61,18 @@ module.exports = (app) => {
 	});
 
 	app.get("/searchByGenre/:genre", async (req, res) =>{
-		
+		let genre = req.params.genre
+		let encodedString = encodeURIComponent(genre);
+		const genreJson = await fetchGenres();
+			genreMapping = genreJson.genres.reduce((acc, genre) => {
+				acc[genre.id] = genre.name;
+				return acc;
+			});
+		let searchedGenre = await searchGenres(encodedString)
+		res.json(searchedGenre)
 	})
 
+	// Finished
 	app.get("/searchByActor/:actor", async (req, res) =>{
 		let actor = req.params.actor
 		let encodedString = encodeURIComponent(actor);
@@ -71,9 +82,12 @@ module.exports = (app) => {
 				return acc;
 			});
 		let searchedPerson = await searchActors(encodedString)
-		res.json(searchedPerson)
+		const actorsWithDetails = await updateActorMovieDetails(searchedPerson, genreMapping)
+		// res.json(searchedPerson)
+		res.json(actorsWithDetails)
 	})
 
+	// Finished
 	app.get("/searchByTitle/:title", async (req, res) => {
 		let title = req.params.title;
 		let encodedString = encodeURIComponent(title);
