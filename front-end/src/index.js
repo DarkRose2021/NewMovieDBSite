@@ -44,7 +44,10 @@ const router = createBrowserRouter([
 		path: "/movie/:id",
 		element: (
 			<> 
-				<NavBar siteName="My Website" contentComponent={<Movie />} />
+			{({params}) => (
+				<NavBar siteName="My Website" contentComponent={ <Movie id={params.id}  />} />
+			)}
+				
 			</>
 		)
 	},

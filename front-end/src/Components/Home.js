@@ -68,7 +68,7 @@ useEffect(() => {
     <div className='movieCards'>
       {/* Maps over all the movies in the array and displays information for each */}
       {movieDetails.map((movie) => (
-      <Link to={`/movie/${movie.id}`}key={movie.id}>
+      <Link to={`/movie/${movie.id}`}key={movie.id} className='movieLink'>
         <div className="movieCard">
           <img src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} className="moviePic" alt={movie.title} />
           <div className="card-body">
