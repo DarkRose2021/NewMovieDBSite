@@ -64,21 +64,21 @@ useEffect(() => {
 
   return (
     <>
-    <Search />
-    <div className='movieCards'>
-      {/* Maps over all the movies in the array and displays information for each */}
-      {movieDetails.map((movie) => (
-      <Link to={`/movie/${movie.id}`}key={movie.id} className='movieLink'>
-        <div className="movieCard">
-          <img src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} className="moviePic" alt={movie.title} />
-          <div className="card-body">
-            <h5 className="movieTitle">{movie.title}</h5>
-            <p className="movieDescription">Released: {movie.release_date}</p>
+      <Search />
+      <div className='movieCards'>
+        {/* Maps over all the movies in the array and displays information for each */}
+        {movieDetails.map((movie) => (
+        <Link to={`/movie/${movie.id}`}key={movie.id} className='movieLink'>
+          <div className="movieCard">
+            <img src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} className="moviePic" alt={movie.title} />
+            <div className="card-body">
+              <h5 className="movieTitle">{movie.title}</h5>
+              <p className="movieDescription">Released: {movie.release_date}</p>
+            </div>
           </div>
-        </div>
-        </Link>
-      ))}
-    </div>
+          </Link>
+        ))}
+      </div>
   </>
   )
 }

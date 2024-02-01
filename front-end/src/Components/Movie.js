@@ -34,14 +34,12 @@ const Movie = ({id}) => {
 //              search for specific movie 
 //
     const [movieData, setMovieData] = useState(null);
-    const [movieID, setMovieID] = useState();
-
     useEffect(() => {
         console.log('Props in Movie component:', id);
         const fetchMovieData = async () => {
             try{
                 console.log("Got Data")
-                fetch(`http://localhost:8080/movie/${id.id}`,{
+                fetch(`http://localhost:8080/oneMovie/${id}`,{
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json', 
@@ -70,7 +68,8 @@ const Movie = ({id}) => {
             }
         };
         fetchMovieData();
-    }, []);
+        console.log("Got data: ", movieData)
+    }, [id]);
 
 
 //*********************************************************

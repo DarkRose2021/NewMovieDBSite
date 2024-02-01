@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "../App.scss";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import Home from "./Home";
-import Search from "./Search";
 
 const NavBar = ({ siteName, contentComponent }) => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);

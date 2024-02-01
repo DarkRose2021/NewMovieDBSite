@@ -18,7 +18,9 @@ const router = createBrowserRouter([
 		path: "/",
 		element: (
 			<>
-				<NavBar siteName="My Website" contentComponent={<Home />} />
+				<NavBar siteName="My Website" 
+					contentComponent={
+					<Home />} />
 			</>
 		),
 	},
@@ -27,7 +29,9 @@ const router = createBrowserRouter([
 		path: "/login",
 		element: (
 			<>
-				<NavBar siteName="My Website" contentComponent={<Login />} />
+				<NavBar siteName="My Website" 
+					contentComponent={
+					<Login />} />
 			</>
 		),
 	},
@@ -36,7 +40,9 @@ const router = createBrowserRouter([
 		path: "/signup",
 		element: (
 			<>
-				<NavBar siteName="My Website" contentComponent={<SignUp />} />
+				<NavBar siteName="My Website" 
+					contentComponent={
+					<SignUp />} />
 			</>
 		),
 	},
@@ -44,10 +50,11 @@ const router = createBrowserRouter([
 		path: "/movie/:id",
 		element: (
 			<> 
-			{({params}) => (
-				<NavBar siteName="My Website" contentComponent={ <Movie id={params.id}  />} />
-			)}
-				
+			  {({params}) => (
+					<NavBar siteName="My Website" 
+						contentComponent={
+							<Movie id={params.id} />} />
+			  )}
 			</>
 		)
 	},
