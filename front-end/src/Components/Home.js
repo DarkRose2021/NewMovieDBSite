@@ -73,7 +73,7 @@ useEffect(() => {
             <img src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} className="moviePic" alt={movie.title} />
             <div className="card-body">
               <h5 className="movieTitle">{movie.title}</h5>
-              <p className="movieDescription">Released: {movie.release_date}</p>
+              <p className="movieReleased">Released: {movie.release_date}</p>
             </div>
           </div>
           </Link>

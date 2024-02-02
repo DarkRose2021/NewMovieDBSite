@@ -1,7 +1,9 @@
 //all the information that is gotten from the api with a button that lets you leave a review if your signed in
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const Movie = ({id}) => {
+const Movie = () => {
+    const {id} = useParams();
     //api call: `http://localhost:8080/oneMovie/${movieID}`
     //returns:
     // {
@@ -20,19 +22,6 @@ const Movie = ({id}) => {
     //put it in variables 
     //display the information
 
-    //filled star : <i class="bi bi-star-fill"></i>
-
-    //empty star : <i class="bi bi-star"></i>
-
-    //partical star : <i class="bi bi-star-half"></i>
-
-
-
-//!!!!!!!!!!!!******************************
-//        Different ways to get movie id
-//              Click on the movie card 
-//              search for specific movie 
-//
     const [movieData, setMovieData] = useState(null);
     useEffect(() => {
         console.log('Props in Movie component:', id);
@@ -53,8 +42,8 @@ const Movie = ({id}) => {
                 })
                 .then((data) => {
                     console.log("Data Recieved");
-                    if (Array.isArray(data)) {
-                           setMovieData(data);
+                    if (data && typeof data === 'object') {
+                        setMovieData(data);
                       } else {
                         console.error("Invalid data format received:", data);
                       }
@@ -103,8 +92,7 @@ const Movie = ({id}) => {
 
 	return (
     <div>
-        <img src={`https://image.tmdb.org/t/p/w300/${movieData.poster_path}`} className="moviePic" alt={id.title} />
-       //Movie Poster 
+        {/* <img src={`https://image.tmdb.org/t/p/w300/${movieData.poster_path}`} className="moviePic" alt={id.title} /> */}
        //Movie discription 
         //Genre 
         //Actors 
