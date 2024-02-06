@@ -110,6 +110,7 @@ module.exports = {
 			id: movie.id,
 			poster_path: movie.poster_path,
 			vote_average: Math.round(movie.vote_average * 0.5),
+			description: movie.overview,
 			release_date: movie.release_date,
 			actors: castJson.cast.map((actor) => actor.name),
 		};
