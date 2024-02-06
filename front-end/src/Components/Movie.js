@@ -64,27 +64,27 @@ const Movie = () => {
 //*********************************************************
     //Render Stars function generated from chatGPT
 
-       // Function to generate star icons based on the average rating
-// Function to generate star icons based on the average rating
+        // Function to generate star icons based on the average rating
         const renderStars = (averageRating) => {
             const stars = [];
+            const filledStars = Math.floor(averageRating / 2);
+            const hasHalfStar = averageRating % 2 !== 0;
 
-            for (let i = 0; i < 5; i++) {
-                if (i < Math.floor(averageRating / 2)) {
-                    stars.push(<i key={i} className="bi bi-star-fill"></i>);
-                } else if (i === Math.floor(averageRating / 2) && averageRating % 2 !== 0) {
-                    stars.push(<i key={`half-${i}`} className="bi bi-star-half"></i>);
-                } else {
-                    stars.push(<i key={`empty-${i}`} className="bi bi-star"></i>);
-                }
+            for (let i = 0; i < filledStars; i++) {
+            stars.push(<i key={i} className="bi bi-star-fill"></i>);
+            }
+
+            if (hasHalfStar) {
+            stars.push(<i key="half" className="bi bi-star-half"></i>);
+            }
+
+            const emptyStars = 5 - filledStars - (hasHalfStar ? 1 : 0);
+            for (let i = 0; i < emptyStars; i++) {
+            stars.push(<i key={`empty-${i}`} className="bi bi-star"></i>);
             }
 
             return stars;
         };
-
-
-
-
 //******************************************************************** */
 
   
@@ -103,7 +103,7 @@ const Movie = () => {
                 <p>{movieData.title}</p>
 
                 <img src={`https://image.tmdb.org/t/p/w300/${movieData.poster_path}`} className="moviePic" alt={movieData.title} />
-                <p>{renderStars(movieData.vote_average)}</p> 
+                <p>{renderStars(movieData.vote_average)} {movieData.vote_average}</p> 
             </>
         ) : (
             <p>Loading...</p>
