@@ -67,24 +67,22 @@ const Movie = () => {
         // Function to generate star icons based on the average rating
         const renderStars = (averageRating) => {
             const stars = [];
-            const filledStars = Math.floor(averageRating / 2);
-            const hasHalfStar = averageRating % 2 !== 0;
-
+            const filledStars = Math.round(averageRating);
+        
             for (let i = 0; i < filledStars; i++) {
-            stars.push(<i key={i} className="bi bi-star-fill"></i>);
+                stars.push(<i key={i} className="bi bi-star-fill"></i>);
             }
-
-            if (hasHalfStar) {
-            stars.push(<i key="half" className="bi bi-star-half"></i>);
-            }
-
-            const emptyStars = 5 - filledStars - (hasHalfStar ? 1 : 0);
+        
+            const emptyStars = 5 - filledStars;
             for (let i = 0; i < emptyStars; i++) {
-            stars.push(<i key={`empty-${i}`} className="bi bi-star"></i>);
+                stars.push(<i key={`empty-${i}`} className="bi bi-star"></i>);
             }
-
+        
             return stars;
         };
+        
+        
+                
 //******************************************************************** */
 
   
