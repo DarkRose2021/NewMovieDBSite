@@ -33,5 +33,14 @@
     "Role": [
       "Client"
     ]
+  },
+  {
+    "Username": "testingThisForm",
+    "Password": "$2a$10$aObBMivyaVEKX68k4mxGXu5v32z1tg8Zm7WKwIW8pdMhI799Y3Qvq",
+    "RegPassword": "Testing#123",
+    "Name": "signup",
+    "Role": [
+      "Client"
+    ]
   }
 ]
