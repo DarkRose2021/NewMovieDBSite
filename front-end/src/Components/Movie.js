@@ -101,6 +101,8 @@ const Movie = () => {
                 <p>{movieData.title}</p>
 
                 <img src={`https://image.tmdb.org/t/p/w300/${movieData.poster_path}`} className="moviePic" alt={movieData.title} />
+                <p className="movieDescription">{movieData.description}</p>
+                <h4>Released: {movieData.release_date}</h4>
                 <p>{renderStars(movieData.vote_average)} {movieData.vote_average}</p> 
                 
                 {movieData.actors.map((actor, index) => (
