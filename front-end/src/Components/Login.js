@@ -9,7 +9,6 @@ const {
     handleSubmit, 
     formState: {errors},
     watch} = useForm();
-    const [username, setUsername] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const password = watch(["password", ""]);
     const hasToken = TokenHook();
@@ -20,6 +19,21 @@ const {
 
      const onSubmit = async(data) => {
         console.log("Sending data")
+
+        try{
+            const response = await fetch("http://localhost:8080/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json()
+            console.log("Backend response:", result);
+        }
+        catch(err){
+            console.error("Error sending the data back: ", err)
+        }
      }
 
     //api call: `http://localhost:8080/login`
@@ -28,12 +42,10 @@ const {
 
         <form className="loginForm" onSubmit={handleSubmit}>
 
-             <input {...register("username", {required: "Username is required"})}  placeholder="Username" onChange={(e) => setUsername} />
-
-
+             <input {...register("username", {required: "Username is required"})}  placeholder="Username" />
 
             <input {...register("password", 
-                {required: "PAssword is required"})} 
+                {required: "Password is required"})} 
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"/>
 
