@@ -26,11 +26,7 @@ const [actorInfo, setActorInfo] = useState(null)
                 })
                 .then((data) => {
                     console.log("Data got")
-                    if (data && typeof data === 'object') {
-                        setActorInfo(data);
-                    } else {
-                        console.error("Invalid data format received:", data);
-                    }
+                    setActorInfo(data)
                 })
                 .catch((error) => {
                     console.error("Error fetching: ", error);
@@ -45,18 +41,15 @@ const [actorInfo, setActorInfo] = useState(null)
     }, [id]);
 
 
-    useEffect(() => {
-        console.log("Got Actor data: ", actorInfo);
-    }, [actorInfo]);
-
-
   return (
     <div className='actorCard'>
-       {actorInfo && (
+       {actorInfo ? (
                 <>
                     <h1>{actorInfo.name}</h1>
                     <img className='pfp' src={`https://api.themoviedb.org/3/person/${id}/images`} alt={actorInfo.name} />
                 </>
+            ) : (
+                <p>Loading....</p>
             )}
     </div>
   )
