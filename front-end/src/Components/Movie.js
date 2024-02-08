@@ -1,5 +1,6 @@
 //all the information that is gotten from the api with a button that lets you leave a review if your signed in
 import React, { useEffect, useState } from "react";
+import Actor from "./Actor";
 import { useParams } from "react-router-dom";
 
 const Movie = () => {
@@ -25,10 +26,10 @@ const Movie = () => {
     const [movieData, setMovieData] = useState(null);
     
     useEffect(() => {
-        console.log('Props in Movie component:', id);
+        // console.log('Props in Movie component:', id);
         const fetchMovieData = async () => {
             try{
-                console.log("Got Data")
+                //console.log("Got Data")
                 fetch(`http://localhost:8080/oneMovie/${id}`,{
                     method: "GET",
                     headers: {
@@ -42,7 +43,7 @@ const Movie = () => {
                       return resp.json();
                 })
                 .then((data) => {
-                    console.log("Data Recieved");
+                    //console.log("Data Recieved");
                     if (data && typeof data === 'object') {
                         setMovieData(data);
                       } else {
@@ -58,7 +59,7 @@ const Movie = () => {
             }
         };
         fetchMovieData();
-        console.log("Got data: ", movieData)
+       // console.log("Got data: ", movieData)
     }, [id]);
 
 
@@ -109,6 +110,7 @@ const Movie = () => {
                 {movieData.actors.map((actor, index) => (
                     <div key={index} className='actorCard'>
                         <h5>{actor.name}</h5>
+                        <Actor key={actor.id} actor={actor} />
 
                     </div>
                 ))}
