@@ -109,7 +109,9 @@ const Movie = () => {
                 
                 {movieData.actors.map((actor, index) => (
                     <div key={index} className='actorCard'>
-                        <h5>{actor.name}</h5>
+                        {/* <h5>{actor.name}</h5>
+                        <h2>{actor.id}</h2> */}
+
                         <Actor key={actor.id} actor={actor} />
 
                     </div>
