@@ -23,6 +23,7 @@ const Movie = () => {
     //display the information
 
     const [movieData, setMovieData] = useState(null);
+    
     useEffect(() => {
         console.log('Props in Movie component:', id);
         const fetchMovieData = async () => {
@@ -107,7 +108,8 @@ const Movie = () => {
                 
                 {movieData.actors.map((actor, index) => (
                     <div key={index} className='actorCard'>
-                        <h5>{actor}</h5>
+                        <h5>{actor.name}</h5>
+
                     </div>
                 ))}
             </>
