@@ -66,6 +66,24 @@ $search: #868bb4; //Search Bar
 	}
 }
 
+.actorCards{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	text-decoration: none;
+}
+.actorCard{
+	width: 25rem;
+	color: $color;
+	background-color: $space-cadet-2;
+	margin: 1%;
+	height: fit-content;
+	text-align: center;
+	padding: 20px;
+
+}
+
+
 .searchButon{
 	background-color: $search;
 	color: #FAFAFA ;

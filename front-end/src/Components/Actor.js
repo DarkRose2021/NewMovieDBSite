@@ -30,7 +30,7 @@ const [actorInfo, setActorInfo] = useState(null)
                 })
                 .then((data) => {
                     // console.log("Data got")
-                    // console.log(data)
+                    console.log(data)
                     setActorInfo(data)
                     // console.log(actorInfo)
                 })
@@ -45,21 +45,38 @@ const [actorInfo, setActorInfo] = useState(null)
         getActorInfo();
     }, [id]);
 
-    const formattedBirthday = (birthday) => {
-        const date = new Date(birthday);
-        const options = { month: 'long', day: 'numeric', year: 'numeric' };
-        return date.toLocaleDateString('en-US', options);
+    const formattedBirthday = (birthday, deathday) => {
+        const formattedBirth = formatDate(birthday);
+        const formattedDeath = formatDate(deathday);
+        if (formattedDeath !== null) {
+            return `${formattedBirth} - ${formattedDeath}`;
+        } else {
+            return `${formattedBirth} - Present` ;
+        }
     };
+    
+
+    const formatDate = (dateString) => {
+        if (!dateString) return '-';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    };
+    
+
 
   return (
-    <div className='actorCard'>
+    <div className='actorCards'>
         {/* {actor.name} */}
        {actorInfo ? (
                 <>
+                <div className='actorCard'>
                     <h1>{actorInfo.name}</h1>
-                    <img className='pfp' src={`https://api.themoviedb.org/t/p/w500/${actorInfo.profile_path}`} alt={actorInfo.name} />
-                    <h2>{actorInfo.gender}</h2>
-                    <h2>{formattedBirthday(actorInfo.birthday)}</h2>
+                        <img className='pfp' src={`https://api.themoviedb.org/t/p/w500/${actorInfo.profile_path}`} alt={actorInfo.name} />
+                        <h2>{actorInfo.gender}</h2>
+                        <h2>{formattedBirthday(actorInfo.birthday, actorInfo.deathday)}</h2>
+                    
+                </div>
+                   
                 </>
             ) : (
                 <p>Loading....</p>
