@@ -47,11 +47,11 @@ const [actorInfo, setActorInfo] = useState(null)
 
     const formattedBirthday = (birthday, deathday) => {
         const formattedBirth = formatDate(birthday);
-        const formattedDeath = formatDate(deathday);
-        if (formattedDeath !== null) {
+        if (deathday) {
+            const formattedDeath = formatDate(deathday);
             return `${formattedBirth} - ${formattedDeath}`;
         } else {
-            return `${formattedBirth} - Present` ;
+            return `${formattedBirth} - Present`;
         }
     };
     
@@ -71,9 +71,10 @@ const [actorInfo, setActorInfo] = useState(null)
                 <>
                 <div className='actorCard'>
                     <h1>{actorInfo.name}</h1>
-                        <img className='pfp' src={`https://api.themoviedb.org/t/p/w500/${actorInfo.profile_path}`} alt={actorInfo.name} />
+                        <img className='pfp' src={`https://api.themoviedb.org/t/p/h632/${actorInfo.profile_path}`} alt={actorInfo.name} />
                         <h2>{actorInfo.gender}</h2>
                         <h2>{formattedBirthday(actorInfo.birthday, actorInfo.deathday)}</h2>
+                        <p>{actorInfo.bio}</p>
                     
                 </div>
                    

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Actor from "./Actor";
 import { useParams } from "react-router-dom";
+import { Carousel } from 'react-bootstrap';
 
 const Movie = () => {
     const {id} = useParams();
@@ -107,15 +108,13 @@ const Movie = () => {
                 <h4>Released: {movieData.release_date}</h4>
                 <p>{renderStars(movieData.vote_average)}</p> 
                 
-                {movieData.actors.map((actor, index) => (
-                    <div key={index} className='actorCard'>
-                        {/* <h5>{actor.name}</h5>
-                        <h2>{actor.id}</h2> */}
-
-                        <Actor key={actor.id} actor={actor} />
-
-                    </div>
-                ))}
+                <Carousel>
+                        {movieData.actors.map((actor, index) => (
+                            <Carousel.Item key={index}>
+                                <Actor actor={actor} />
+                            </Carousel.Item>
+                        ))}
+                    </Carousel>
             </>
         ) : (
             <p>Loading...</p>
