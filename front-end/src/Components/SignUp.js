@@ -44,15 +44,11 @@ const SignUp = () => {
 		<div className="signUp">
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<input
-					{...register("username", { required: "Username is required" })}
+					{...register("username", { required: "Email is required" })}
 					id="username"
-					placeholder="Username"
+					placeholder="Email"
 				/>
-				<input
-					{...register("name", { required: "Name is required" })}
-					id="name"
-					placeholder="name"
-				/>
+				
 
 				<input
 					id="password"

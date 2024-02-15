@@ -67,8 +67,8 @@ const [actorInfo, setActorInfo] = useState(null)
   return (
     <div className='actorCards'>
         {/* {actor.name} */}
-       {actorInfo ? (
-                <>
+       {actorInfo && actorInfo.birthday && (
+            <>
                 <div className='actorCard'>
                     <h1>{actorInfo.name}</h1>
                         <img className='pfp' src={`https://api.themoviedb.org/t/p/h632/${actorInfo.profile_path}`} alt={actorInfo.name} />
@@ -77,12 +77,9 @@ const [actorInfo, setActorInfo] = useState(null)
                         <p>{actorInfo.bio}</p>
                     
                 </div>
-                   
-                </>
-            ) : (
-                <p>Loading....</p>
-            )}
-    </div>
+            </>
+    )}
+  </div>
   )
 }
 

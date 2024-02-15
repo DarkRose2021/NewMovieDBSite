@@ -108,13 +108,12 @@ const Movie = () => {
                 <h4>Released: {movieData.release_date}</h4>
                 <p>{renderStars(movieData.vote_average)}</p> 
                 
-                <Carousel>
-                        {movieData.actors.map((actor, index) => (
-                            <Carousel.Item key={index}>
-                                <Actor actor={actor} />
-                            </Carousel.Item>
-                        ))}
-                    </Carousel>
+                {movieData.actors.map((actor, index) => (
+                    <div key={index} >
+                        <Actor key={actor.id} actor={actor} />
+
+                    </div>
+                ))}
             </>
         ) : (
             <p>Loading...</p>
