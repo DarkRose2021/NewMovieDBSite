@@ -1,70 +1,45 @@
 const bcryptjs = require("bcryptjs");
 const userService = require("../services/userService");
-const jwt = require("jsonwebtoken"); //token for sign in
-const crypto = require("crypto");
-
-const generateSecretKey = () => {
-	return crypto.randomBytes(16).toString("hex");
-};
-
-const secretKey = generateSecretKey(); //secret key for token
+const dal = require("../dal").dal;
 
 module.exports = (app) => {
 	app.post("/login", async (req, res) => {
-		const username = req.body.username;
+		const email = req.body.username;
 		const password = req.body.password;
-		//ref dal to send the info to the dal
-		const user = userService.getUser(username);
-		console.log(user);
 
-		// Check if the user exists
-		if (!user) {
-			res.json({
-				Message: "User not found. Please check your username.",
-			});
-			return;
-		}
+		try {
+			const found = await dal.findUserEmail(email);
+			console.log(found);
 
-		// Check if the entered password is correct
-		console.log("Stored hashed password:", user.Password);
-		console.log("Entered password:", password);
+			if (!found) {
+				res.json({ Message: "Invalid Email or password" });
+				return;
+			}
 
-		const isPasswordValid = await bcryptjs.compare(password, user.Password);
-		console.log("Is password valid:", isPasswordValid);
+			const checkPasswords = await bcryptjs.compare(password, found.Password);
 
-		if (isPasswordValid) {
-			const token = jwt.sign({ username: username }, secretKey, {
-				expiresIn: "1h",
-			});
-			res.json({
-				User: {
-					Username: user.Username,
-					Name: user.Name,
-				},
-				Message: "Login successful",
-				token: token,
-			});
-		} else {
-			res.json({
-				Message: "Incorrect password. Please try again.",
-			});
+			if (checkPasswords) {
+				const plainUser = found.toObject();
+
+				const modifiedUser = { ...plainUser, Username: plainUser.Email };
+				delete modifiedUser.Email;
+				res.json({ Message: `${found.Email} found`, User: modifiedUser });
+			} else {
+				res.json({ Message: "Invalid Email or password" });
+			}
+		} catch (error) {
+			console.error(error);
+			res.status(500).json({ Message: "An error occurred" });
 		}
 	});
 
+	// done in the dal
 	app.post("/signup", async (req, res) => {
-		const username = req.body.username;
+		const email = req.body.username;
 		const password = req.body.password;
 		const name = req.body.name;
-
-		const newUser = {
-			Username: username,
-			Password: password,
-			Name: name,
-			Role: ["Client"],
-		};
-
-		//ref dal to send the info to the dal
-		userService.addUser(newUser);
+		
+		let newUser = await dal.createUser(email, name, password);
 
 		res.json({
 			User: newUser,

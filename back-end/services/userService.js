@@ -17,10 +17,8 @@ module.exports = {
 	},
 
 	addUser: (user) => {
-		// Load existing users from the file
 		const existingUsers = require(usersFilePath);
 
-		// Check if the username is already taken
 		if (
 			existingUsers.find(
 				(existingUser) => existingUser.Username === user.Username
@@ -28,26 +26,21 @@ module.exports = {
 		) {
 			return false; // Username already taken
 		} else {
-			// Hash the password
 			const hashedPassword = bcryptjs.hashSync(user.Password, 10);
 
-			// Create a new user object
 			const newUser = {
 				Username: user.Username,
 				Password: hashedPassword,
-				//testing purposes
 				RegPassword: user.Password,
 				Name: user.Name,
 				Role: user.Role,
 			};
 
-			// Add the new user to the existing users array
 			existingUsers.push(newUser);
 
-			// Write the updated users array back to the file
 			fs.writeFileSync(usersFilePath, JSON.stringify(existingUsers, null, 2));
 
-			return true; // User added successfully
+			return true;
 		}
 	},
 	addReview: (review) => {
