@@ -49,18 +49,14 @@ exports.dal = {
 
 		try {
 			let existingUser = await userModel.findOne(check);
-			console.log(existingUser)
 
 			if (existingUser) {
-				console.log("taken")
 				return "Email Taken";
 			} else {
 				let newUser = await userModel.create(user);
-				console.log("created")
 				return newUser;
 			}
 		} catch (error) {
-			console.log("error happened")
 			console.error(error);
 			throw error;
 		}
@@ -82,9 +78,15 @@ exports.dal = {
 		return await userModel.find({}).exec();
 	},
 	deleteUser: async (email) =>{
-		email = email.replace(/^"(.*)"$/, "$1");
-		await userModel.collection.updateOne({Email: email})
-		return email + " deleted"
+		let user = await userModel.collection.findOne({
+			Email: email,
+		});
+	
+		if (user !== null) {
+			await userModel.collection.deleteOne({
+				Email: email
+			});
+		}
 	},
 	findUserEmail: async (email) => {
 		try {

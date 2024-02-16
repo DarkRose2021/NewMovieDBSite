@@ -38,13 +38,34 @@ module.exports = (app) => {
 		const email = req.body.username;
 		const password = req.body.password;
 		const name = req.body.name;
-		
+
 		let newUser = await dal.createUser(email, name, password);
 
 		res.json({
 			User: newUser,
 			Message: "Created a new user",
 		});
+	});
+
+	app.get("/deleteUser/:email", async (req, res) => {
+		const email = req.params.email;
+		let users = await dal.listUsers();
+		let beforeDel = users.length;
+
+		await dal.deleteUser(email);
+		users;
+		let afterDel = users.length;
+
+		if (afterDel < beforeDel) {
+			res.json({ Message: "User Deleted", Users: users });
+		} else {
+			res.json({ Message: "User Not Deleted", Users: users });
+		}
+	});
+
+	app.get("/listUsers", async (req, res) => {
+		users = await dal.listUsers();
+		res.json(users);
 	});
 
 	app.post("/reviewMovie/:username", (req, res) => {
