@@ -67,7 +67,7 @@ module.exports = (app) => {
 		users = await dal.listUsers();
 		res.json(users);
 	});
-
+	
 	app.post("/reviewMovie/:username", (req, res) => {
 		const movieName = req.body.movieName;
 		const starAmount = req.body.starAmount;
