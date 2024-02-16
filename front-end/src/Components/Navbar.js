@@ -21,7 +21,7 @@ const NavBar = ({ siteName, contentComponent }) => {
             <div id="mySidebar" className={`sidebar ${sidebarOpen ? "open" : ""}`}>
                 <a href="/login">Login</a>
                 <a href="/signup">Sign Up</a>
-                <a href="/movie">Movie</a>
+                <a href="/review">Review</a>
             </div>
 
             <Navbar className="navBar" >

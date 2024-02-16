@@ -8,6 +8,7 @@ import Home from "./Components/Home";
 import Login from "./Components/Login";
 import SignUp from "./Components/SignUp";
 import Movie from "./Components/Movie";
+import Review from "./Components/Review";
 
 const url = "http://localhost:8080";
 
@@ -54,6 +55,15 @@ const router = createBrowserRouter([
 						contentComponent={
 							<Movie  />} />
 			  
+			</>
+		)
+	},
+	{
+		path:"/review",
+		element: (
+			<>
+				<NavBar siteName={"My Site"}
+					contentComponent={<Review />}/>
 			</>
 		)
 	},
