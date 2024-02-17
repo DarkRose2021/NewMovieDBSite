@@ -36,17 +36,26 @@ const Review = () => {
         setRating(value);
       };
 
+
+    const handleChange = (e) => {
+        if (e.target.value.length <= 1000) {
+            setReview(e.target.value)
+        }
+    }   
 	return (
     
     <div>
         <h1>The Movies Title(populated automatically)</h1>
         <form>
-            <input 
+            <textarea 
                 {...register("Review", {required: "You must leave a review to rate the movie."})}
                 id="Review"
+                onChange={handleChange}
                 placeholder="Review"
+                value={review}
+                maxLength={1000}
             />
-
+             <p>Character count: {review.length}/1000</p>
 
 
         <StarRating rating={rating} onChange={handleRatingChange}/>
