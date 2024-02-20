@@ -62,25 +62,29 @@ const [actorInfo, setActorInfo] = useState(null)
         return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
     };
     
-
+ // Check if a name and at least one additional piece of information other than gender
+        const isCompleteActorInfo =
+        actorInfo &&
+        actorInfo.name &&
+        (actorInfo.birthday || actorInfo.deathday || actorInfo.bio);
 
   return (
     <div className='actorCards'>
-        {/* {actor.name} */}
-       {actorInfo && actorInfo.birthday && (
-            <>
-                <div className='actorCard'>
-                    <h1>{actorInfo.name}</h1>
-                        <img className='pfp' src={`https://api.themoviedb.org/t/p/h632/${actorInfo.profile_path}`} alt={actorInfo.name} />
-                        <h2>{actorInfo.gender}</h2>
-                        <h2>{formattedBirthday(actorInfo.birthday, actorInfo.deathday)}</h2>
-                        <p>{actorInfo.bio}</p>
-                    
-                </div>
-            </>
-    )}
-  </div>
-  )
-}
+        {isCompleteActorInfo && (
+            <div className='actorCard'>
+            <img src={`https://image.tmdb.org/t/p/w500/${actorInfo.profile_path}`} alt={actorInfo.name} />
+            <h1>{actorInfo.name}</h1>
+            {actorInfo.birthday && 
+                <h2>{formattedBirthday(actorInfo.birthday, actorInfo.deathday)}</h2>}
+            {actorInfo.gender && 
+                <h2>{actorInfo.gender}</h2>}
+            {actorInfo.bio && 
+                <p>{actorInfo.bio}</p>}
+            </div>
+        )}
+    </div>
+  );
+};
+
 
 export default Actor
