@@ -40,61 +40,42 @@ const {
 	return (
         <div className="container d-flex flex-column justify-content-center align-items-center">
 
-        <form className="loginForm" onSubmit={handleSubmit}>
+            <form className="loginForm" onSubmit={handleSubmit}>
+             
+              <div>
+                  <input {...register("username", 
+                    {required: "Username is required"})}  
+                    placeholder="Username" 
+                    className="login"
+                />
+              </div>
+              <div >
 
-             <input {...register("username", {required: "Username is required"})}  placeholder="Username" />
+              </div>
 
-            <input {...register("password", 
-                {required: "Password is required"})} 
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"/>
+                <input {...register("password", 
+                    {required: "Password is required"})} 
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    className="login"
+                />
 
-            <span className="icon-eye" onClick={togglePassword}>
-                {showPassword ? (
-                    <i className="bi bi-eye"></i>
-                ) : (
-                    <i className="bi bi-eye-slash"></i>
-                )}
-            </span>
+                <span className="icon-eye" onClick={togglePassword}>
+                    {showPassword ? (
+                        <i className="bi bi-eye"></i>
+                    ) : (
+                        <i className="bi bi-eye-slash"></i>
+                    )}
+                </span>
 
-            <input type="submit" />
+                <div>
+                     <input className="loginButton"
+                type="submit" />
+                </div>
+               
 
-        </form>
-
-{/* 
-            <div className="SignInForm">
-            
-            <h1 className="Title SignInForm">Sign In</h1>
-
-            <label className="SignInForm mt-2 formLabel">Username:</label>
-            <input
-            className=" SignInForm mb-3 form-control"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            />
-
-                <div className="form-group">
-                    
-                        <label className="SignInForm formLabel">Password:</label>
-                        <div className="input-group">
-                            <input
-                                className={`SignInForm form-control ${showPassword ? "showPassword" : ""}`}
-                                type={showPassword ? "text" : "password"}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                />
-                                <span className="icon-eye" onClick={togglePassword}>
-                                {showPassword ? (
-                                    <i className="bi bi-eye"></i>
-                                ) : (
-                                    <i className="bi bi-eye-slash"></i>
-                                )}
-                                </span>
-                        </div>
-                </div> */}
-            </div>
-        // </div>
+            </form>
+        </div>
     );
 };
 

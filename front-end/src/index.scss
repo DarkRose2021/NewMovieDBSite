@@ -22,6 +22,19 @@ $search: #868bb4; //Search Bar
 }
 
 
+.stars{
+	color: $gold;
+	font-size: 5em;
+}
+
+.star{
+	color: white;
+	cursor: pointer;
+	font-size: 5em;	
+}
+.filled {
+    color: $gold; 
+}
 .navBar{
 	margin-Left: "0";
 	padding-Left: "0" 
@@ -140,4 +153,21 @@ $search: #868bb4; //Search Bar
 		transform: translateY(-50%);
 		cursor: pointer;
 	  }
+}
+
+.loginForm{
+	border-radius: 50px;
+	
+
+	.login{
+		border-radius: 50px;
+		text-align: center;
+		font-size: 1.5em;
+		width: 1000px;
+
+	}
+	.loginButton{
+		border-radius: 50px;
+		font-size: 1.5em;
+	}
 }
