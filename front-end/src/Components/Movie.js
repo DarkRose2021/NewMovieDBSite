@@ -73,16 +73,17 @@ const Movie = () => {
             const filledStars = Math.round(averageRating);
         
             for (let i = 0; i < filledStars; i++) {
-                stars.push(<i key={i} className="bi bi-star-fill"></i>);
+                stars.push(<i key={i} className="bi bi-star-fill" style={{ marginRight: '20px' }}></i>);
             }
         
             const emptyStars = 5 - filledStars;
             for (let i = 0; i < emptyStars; i++) {
-                stars.push(<i key={`empty-${i}`} className="bi bi-star"></i>);
+                stars.push(<i key={`empty-${i}`} className="bi bi-star" style={{ marginRight: '20px' }}></i>);
             }
         
             return stars;
         };
+        
         
         
                 
@@ -101,7 +102,7 @@ const Movie = () => {
        <div>
         {movieData ? (
             <>
-            <div className="movieCards">
+            <div className="moviePage">
                  <h1>{movieData.title}</h1>
 
                 <img src={`https://image.tmdb.org/t/p/w300/${movieData.poster_path}`} className="moviePic" alt={movieData.title} />
