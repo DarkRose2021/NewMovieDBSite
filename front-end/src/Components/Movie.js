@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Actor from "./Actor";
 import { useParams } from "react-router-dom";
 import { Carousel } from 'react-bootstrap';
+import Review from "./Review";
 
 const Movie = () => {
     const {id} = useParams();
@@ -60,7 +61,7 @@ const Movie = () => {
             }
         };
         fetchMovieData();
-       // console.log("Got data: ", movieData)
+    //    console.log("Got data: ", movieData)
     }, [id]);
 
 
@@ -107,13 +108,18 @@ const Movie = () => {
 
                 <img src={`https://image.tmdb.org/t/p/w300/${movieData.poster_path}`} className="moviePic" alt={movieData.title} />
                 <p className="movieDescription">{movieData.description}</p>
+                <Review movieTitle={movieData.title} />
+
                 <h4>Released: {movieData.release_date}</h4>
                 <p className="stars">{renderStars(movieData.vote_average)}</p> 
+               <div className="display flex row">
                 {movieData.actors.map((actor, index) => (
                     <div key={index} className="container flex actorCards">
                         <Actor key={actor.id} actor={actor} />
-                    </div>      
+                    </div>   
                 ))}                        
+    
+                </div>    
             </div>   
             </>
         ) : (

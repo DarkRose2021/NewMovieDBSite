@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import StarRating from "./StarRating";
 import { useForm } from "react-hook-form";
 
-const Review = () => {
+const Review = ({movieTitle}) => {
     const {
 		register,
 		handleSubmit,
@@ -40,12 +40,13 @@ const Review = () => {
     const handleChange = (e) => {
         if (e.target.value.length <= 1000) {
             setReview(e.target.value)
+            console.log(review);
         }
     }   
 	return (
     
     <div>
-        <h1>The Movies Title(populated automatically)</h1>
+        <h1>{movieTitle}</h1>
         <form>
             <textarea 
                 {...register("Review", {required: "You must leave a review to rate the movie."})}
