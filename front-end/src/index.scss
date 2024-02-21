@@ -22,10 +22,7 @@ $search: #868bb4; //Search Bar
 }
 
 
-.stars{
-	color: $gold;
-	font-size: 5em;
-}
+
 
 .star{
 	color: white;
@@ -35,6 +32,7 @@ $search: #868bb4; //Search Bar
 .filled {
     color: $gold; 
 }
+
 .navBar{
 	margin-Left: "0";
 	padding-Left: "0" 
@@ -51,6 +49,20 @@ $search: #868bb4; //Search Bar
 	}
 
 }
+
+.moviePic{
+	margin-left: 30%;
+	width: 700px;
+	height: auto;
+}
+
+.stars{
+	color: $gold;
+	font-size: 5em;
+	margin-left: 40%;
+	display: flex;
+}
+
 .movieCards{
 	display: flex;
 	flex-wrap: wrap;

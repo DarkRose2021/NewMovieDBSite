@@ -101,19 +101,19 @@ const Movie = () => {
        <div>
         {movieData ? (
             <>
-                <h1>{movieData.title}</h1>
+            <div className="movieCards">
+                 <h1>{movieData.title}</h1>
 
                 <img src={`https://image.tmdb.org/t/p/w300/${movieData.poster_path}`} className="moviePic" alt={movieData.title} />
                 <p className="movieDescription">{movieData.description}</p>
                 <h4>Released: {movieData.release_date}</h4>
                 <p className="stars">{renderStars(movieData.vote_average)}</p> 
-                
                 {movieData.actors.map((actor, index) => (
                     <div key={index} >
                         <Actor key={actor.id} actor={actor} />
-
-                    </div>
-                ))}
+                    </div>      
+                ))}                        
+            </div>   
             </>
         ) : (
             <p>Loading...</p>
