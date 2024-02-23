@@ -1,20 +1,28 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import "../App.scss";
 import { Navbar, Container } from "react-bootstrap";
 
 const NavBar = ({ siteName, contentComponent }) => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const location = useLocation();
+    const hasToken = localStorage.getItem('token');
 
     const openNav = () => {
         setSidebarOpen(!sidebarOpen);
     };
 
+    const handleSignOut = () => {
+        localStorage.removeItem('token')
+        window.location.reload()
+      }
+    
     // Function to determine if the link should be disabled based on the current route
     const isLinkDisabled = (pathname) => {
         return pathname === "/";
     };
+
+    //To check if there is a token in rhw storage
 
     return (
         <>
@@ -42,19 +50,30 @@ const NavBar = ({ siteName, contentComponent }) => {
                     <Navbar.Collapse className="justify-content-between">
                         <Navbar.Text className="mx-auto">
                             <h2>
-                                {/* Conditionally render the href attribute */}
                                 {isLinkDisabled(location.pathname) ? (
                                     <span>{siteName}</span>
                                 ) : (
-                                    <a href="/">{siteName}</a>
+                                    <a href="/" className="homeLink">{siteName}</a>
                                 )}
                             </h2>
                         </Navbar.Text>
-                        
+                      {hasToken ? (
                         <Navbar.Text>
                             {/* Change to a toggle to show login   signup when not logged in */}
+                            <h1>Your In</h1>
                             <i className="bi bi-person-circle h1"></i>
+                            <a onClick={handleSignOut} >Log Out</a>
                         </Navbar.Text>
+                      ) : (
+                        <Navbar.Text>
+                        <NavLink to='/login'>
+                            Login
+                        </NavLink>
+                        </Navbar.Text>
+                      )
+
+                      }  
+                        
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

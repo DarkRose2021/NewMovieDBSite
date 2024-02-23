@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import TokenHook from "./TokenHook";
 import {useForm} from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 const {
@@ -11,6 +12,9 @@ const {
     watch} = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const password = watch(["password", ""]);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate();
+
     const hasToken = TokenHook();
 
     const togglePassword = () => {
@@ -27,15 +31,33 @@ const {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(data)
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log("Got it~!", data)
+                const [token] = data.token;
+                if(token){
+                    console.log("Putting Token in stoarge")
+                    localStorage.setItem('token', token)
+                    setIsAuthenticated(true);
+                    navigate('/');
+                }
+            })
+            .catch((err) => {
+                console.error("Error: ", err)
             });
-            const result = await response.json()
-            console.log("Backend response:", result);
         }
         catch(err){
             console.error("Error sending the data back: ", err)
         }
      }
-
+            
+     useEffect(() => {
+        if (hasToken) {
+            setIsAuthenticated(true);
+            console.log('Token is set');
+                }
+    }, [hasToken]);
     //api call: `http://localhost:8080/login`
 	return (
         <div className="container d-flex flex-column justify-content-center align-items-center">

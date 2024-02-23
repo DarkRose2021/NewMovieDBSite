@@ -112,9 +112,9 @@ const Movie = () => {
 
                 <h4>Released: {movieData.release_date}</h4>
                 <p className="stars">{renderStars(movieData.vote_average)}</p> 
-               <div className="display flex row">
+               <div className="display">
                 {movieData.actors.map((actor, index) => (
-                    <div key={index} className="container flex actorCards">
+                    <div key={index} className="actorCards">
                         <Actor key={actor.id} actor={actor} />
                     </div>   
                 ))}                        

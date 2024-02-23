@@ -7,6 +7,8 @@ const Actor = ({actor}) => {
     // console.log("ID: ", id)
     // console.log("Actors ", actor)
 const [actorInfo, setActorInfo] = useState(null)
+const [isExpanded, setIsExpanded] = useState(false); // State to track if bio is expanded
+
 
     useEffect(() => {
         // console.log("Props :", id);
@@ -68,18 +70,29 @@ const [actorInfo, setActorInfo] = useState(null)
         actorInfo.name &&
         (actorInfo.birthday || actorInfo.deathday || actorInfo.bio);
 
+        const toggleExpanded = () => {
+            setIsExpanded(!isExpanded);
+        };
+        const isBioExpandable = () => {
+            const bioElement = document.querySelector('.actorCard p');
+            if (bioElement) {
+              return bioElement.scrollHeight > 110; // Adjust 50 as needed, it represents the threshold height
+            }
+            return false;
+          };
+
   return (
     <div className='actorCards'>
         {isCompleteActorInfo && (
-            <div className='actorCard'>
-            <img src={`https://image.tmdb.org/t/p/w500/${actorInfo.profile_path}`} alt={actorInfo.name} />
+    <div className={`actorCard ${isBioExpandable() ? 'collapsed' : ''}`} onClick={isBioExpandable() ? toggleExpanded : null}>
+    <img className='pfp' src={`https://image.tmdb.org/t/p/original${actorInfo.profile}`} alt={actorInfo.name} />
             <h1>{actorInfo.name}</h1>
             {actorInfo.birthday && 
                 <h2>{formattedBirthday(actorInfo.birthday, actorInfo.deathday)}</h2>}
             {actorInfo.gender && 
                 <h2>{actorInfo.gender}</h2>}
             {actorInfo.bio && 
-                <p>{actorInfo.bio}</p>}
+              <p className={isExpanded ? 'expanded' : 'collapsed'}>{actorInfo.bio}</p>}
             </div>
         )}
     </div>
