@@ -1,4 +1,3 @@
-//all the information that is gotten from the api with a button that lets you leave a review if your signed in
 import React, { useEffect, useState } from "react";
 import Actor from "./Actor";
 import { useParams } from "react-router-dom";
@@ -7,24 +6,7 @@ import Review from "./Review";
 
 const Movie = () => {
     const {id} = useParams();
-    //api call: `http://localhost:8080/oneMovie/${movieID}`
-    //returns:
-    // {
-    //     "title": "Lift",
-    //     "id": 955916,
-    //     "poster_path": "/46sp1Z9b2PPTgCMyA87g9aTLUXi.jpg",
-    //     "vote_average": 3,
-    //     "release_date": "2024-01-10",
-    //     "actors": [
-    //         array of names
-    //     ]
-    // }
-
-
-    //get stuff back from api 
-    //put it in variables 
-    //display the information
-
+ 
     const [movieData, setMovieData] = useState(null);
     
     useEffect(() => {
@@ -45,7 +27,7 @@ const Movie = () => {
                       return resp.json();
                 })
                 .then((data) => {
-                    //console.log("Data Recieved");
+                    console.log("Data Recieved", data);
                     if (data && typeof data === 'object') {
                         setMovieData(data);
                       } else {
@@ -95,23 +77,25 @@ const Movie = () => {
 
 	return (
     <div>
-       {/* //Movie discription 
-        //Genre 
-        //Actors  */}
-       
-       
        <div>
         {movieData ? (
             <>
+            
+                    
+                
             <div className="moviePage">
-                 <h1>{movieData.title}</h1>
+                <div className="movieDetails">
+                <h1 className="movieTitle">{movieData.title}</h1>
+                 <img src={`https://image.tmdb.org/t/p/w300/${movieData.poster_path}`} className="moviePic" style={{ backgroundImage: `url('https://image.tmdb.org/t/p/w300/${movieData.backdrop_path})`}} alt={movieData.title} />
+                <p className="movieDescription">{movieData.overview}</p>
 
-                <img src={`https://image.tmdb.org/t/p/w300/${movieData.poster_path}`} className="moviePic" alt={movieData.title} />
-                <p className="movieDescription">{movieData.description}</p>
+                <h4 className="released">{movieData.release_date}</h4>
+                <p className="stars">{renderStars(movieData.vote_average)}</p> 
+                </div>
+               
+                
                 <Review movieTitle={movieData.title} />
 
-                <h4>Released: {movieData.release_date}</h4>
-                <p className="stars">{renderStars(movieData.vote_average)}</p> 
                <div className="display">
                {movieData.actors.map((actor, index) => (
                     <div key={index} className="actorCards">
