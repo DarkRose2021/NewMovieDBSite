@@ -9,12 +9,14 @@ import StarRating from "./StarRating";
 import { useForm } from "react-hook-form";
 
 const Review = ({movieTitle}) => {
+    
     const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		watch,
 	} = useForm();
+
     const [stars, setStars] = useState(0);
     const [review, setReview] = useState('')
     const [submit, setSubmit] = useState(false);

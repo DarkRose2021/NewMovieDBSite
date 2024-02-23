@@ -18,7 +18,7 @@ const {
       };
 
      const onSubmit = async(data) => {
-        console.log("Sending data")
+        console.log("Sending data: ", data)
 
         try{
             const response = await fetch("http://localhost:8080/login", {
@@ -40,7 +40,7 @@ const {
 	return (
         <div className="container d-flex flex-column justify-content-center align-items-center">
 
-            <form className="loginForm" onSubmit={handleSubmit}>
+            <form className="loginForm" onSubmit={handleSubmit(onSubmit)}>
              
               <div>
                   <input {...register("username", 
