@@ -74,6 +74,7 @@ useEffect(() => {
             <div className="card-body">
               <h5 className="movieTitle">{movie.title}</h5>
               <p className="movieReleased">Released: {movie.release_date}</p>
+              <h5>Generes: <br/> {movie.genres.join(', ')}</h5>
             </div>
           </div>
           </Link>

@@ -112,13 +112,14 @@ $search: #868bb4; //Search Bar
 }
 .display{
 	display: flex;
-    flex-wrap: nowrap; /* Ensure actors stay in a single row */
+    flex-wrap: nowrap; /* actors stay in a single row */
     overflow-x: auto; /* Enable horizontal scrolling if necessary */
     padding: 10px;
-    width: 100%; /* Adjust the width as needed */
+    width: 100%; 
+	gap: 20px;
 	.actorCards {
+		flex: 1 0 20%;
     	padding: 10px;
-		width: 20%;
 		.actorCard {
 			width: fit-content;
 			color: $color;

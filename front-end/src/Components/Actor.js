@@ -74,12 +74,12 @@ const [isExpanded, setIsExpanded] = useState(false); // State to track if bio is
             setIsExpanded(!isExpanded);
         };
         const isBioExpandable = () => {
-            const bioElement = document.querySelector('.actorCard p');
-            if (bioElement) {
-              return bioElement.scrollHeight > 110; // Adjust 50 as needed, it represents the threshold height
-            }
-            return false;
-          };
+  const bioElement = document.querySelector('.actorCard p');
+  if (bioElement) {
+    return bioElement.scrollHeight > 110;
+  }
+  return false;
+};
 
   return (
     <div className='actorCards'>

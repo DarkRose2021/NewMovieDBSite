@@ -113,11 +113,11 @@ const Movie = () => {
                 <h4>Released: {movieData.release_date}</h4>
                 <p className="stars">{renderStars(movieData.vote_average)}</p> 
                <div className="display">
-                {movieData.actors.map((actor, index) => (
+               {movieData.actors.map((actor, index) => (
                     <div key={index} className="actorCards">
-                        <Actor key={actor.id} actor={actor} />
-                    </div>   
-                ))}                        
+                    <Actor key={actor.id} actor={actor} />
+                    </div>
+                ))}                      
     
                 </div>    
             </div>   
@@ -127,7 +127,7 @@ const Movie = () => {
         )}
     </div>
 {/*        
-        //amount of stars : renderStars()
+       
         //if signed in button to write a review as long as they havent written one for that movie before
         //if not have button that takes takes to sign up form */}
         
