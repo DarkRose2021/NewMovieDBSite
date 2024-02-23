@@ -137,7 +137,7 @@ module.exports = {
 
 	updateOneMovieDetails: (movie, castJson) => {
 		let castData = castJson;
-	
+
 		if (Array.isArray(castJson)) {
 			castData = castJson;
 		} else if (castJson.cast && Array.isArray(castJson.cast)) {
@@ -146,27 +146,29 @@ module.exports = {
 			console.error("Invalid castJson structure");
 			return null;
 		}
-	
+
 		const actorsData = castData.filter(
 			(actor) => actor.known_for_department === "Acting"
 		);
-	
+
 		console.log("castData:", castData);
 		console.log("actorsData:", actorsData);
-	
+
 		const actorsWithIdAndName = actorsData.map((actor) => {
 			return {
 				id: actor.id,
 				name: actor.name,
 			};
 		});
-	
+
 		return {
 			title: movie.title,
 			id: movie.id,
 			poster_path: movie.poster_path,
 			vote_average: Math.round(movie.vote_average * 0.5),
 			release_date: movie.release_date,
+			backdrop_path: movie.backdrop_path,
+			overview: movie.overview,
 			// genres: movie.genre_ids.map((genreId) => genreMapping[genreId]),
 			actors: actorsWithIdAndName,
 		};
@@ -185,6 +187,8 @@ module.exports = {
 					genres: movie.genre_ids.map((genreId) => genreMapping[genreId]),
 					poster_path: movie.poster_path,
 					vote_average: Math.round(movie.vote_average * 0.5),
+					backdrop_path: movie.backdrop_path,
+					overview: movie.overview,
 					release_date: movie.release_date,
 				};
 			});
@@ -221,7 +225,7 @@ module.exports = {
 			gender: gender,
 			birthPlace: actor.place_of_birth,
 			profile: actor.profile_path,
-			knowAs: actor.also_known_as
+			knowAs: actor.also_known_as,
 		};
 	},
 };

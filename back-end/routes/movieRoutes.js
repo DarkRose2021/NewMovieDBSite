@@ -25,7 +25,6 @@ module.exports = (app) => {
 			});
 			const movieJson = await fetchMovieData();
 
-			// Fetch and Update Movie Data with Genres and Actors concurrently
 			const moviesWithDetails = await Promise.all(
 				movieJson.results.map(async (movie) => {
 					// Fetch Cast Information
