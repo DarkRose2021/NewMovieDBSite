@@ -6,7 +6,6 @@ const userService = require("../services/userService");
 const usersFilePath = path.join(__dirname, "users.json");
 const reviewFilePath = path.join(__dirname, "reviews.json");
 // delete this file later, placeholder for the database
-const users = require("./users.json");
 const reviews = require("./reviews.json");
 
 // eventually delete this cuz its basically a dal
@@ -63,16 +62,13 @@ module.exports = {
 	deleteReview: (reviewId) => {
 		const existingReviews = require(reviewFilePath);
 
-		// Convert reviewId to a number (assuming Id is a number)
 		const reviewIdNumber = Number(reviewId);
 
-		// Find the index of the review with the specified reviewId
 		const reviewIndex = existingReviews.findIndex(
 			(review) => review.Id === reviewIdNumber
 		);
 
 		if (reviewIndex !== -1) {
-			// Remove the review using splice
 			existingReviews.splice(reviewIndex, 1);
 
 			fs.writeFileSync(
