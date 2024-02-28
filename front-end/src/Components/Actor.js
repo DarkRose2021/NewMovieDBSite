@@ -87,6 +87,7 @@ const [isExpanded, setIsExpanded] = useState(false); // State to track if bio is
     <div className={`actorCard ${isBioExpandable() ? 'collapsed' : ''}`} onClick={isBioExpandable() ? toggleExpanded : null}>
     <img className='pfp' src={`https://image.tmdb.org/t/p/original${actorInfo.profile}`} alt={actorInfo.name} />
             <h1>{actorInfo.name}</h1>
+            {actorInfo.character}
             {actorInfo.birthday && 
                 <h2>{formattedBirthday(actorInfo.birthday, actorInfo.deathday)}</h2>}
             {actorInfo.gender && 

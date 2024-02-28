@@ -1,15 +1,10 @@
-//The box where the user leaves a review for a movie
-
-//Movies name
-//Movies genre
-//amount of stars
-//discription why that star amount
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StarRating from "./StarRating";
 import { useForm } from "react-hook-form";
+import TokenHook from "./TokenHook";
 
 const Review = ({movieTitle}) => {
-    
+
     const {
 		register,
 		handleSubmit,
@@ -21,6 +16,9 @@ const Review = ({movieTitle}) => {
     const [review, setReview] = useState('')
     const [submit, setSubmit] = useState(false);
     const [rating, setRating] = useState(0)
+    const hasToken = TokenHook();
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+
     //api call: `http://localhost:8080/reviewMovie/${username}`
     // Needs this info:
     // "MovieName": "In Time",
@@ -31,8 +29,23 @@ const Review = ({movieTitle}) => {
 
     //Will already be populated with movie Name & Genere
 
-    const onSubmit = async () => {
+    useEffect(() => {
+        if (hasToken) {
+            setIsAuthenticated(true);
+            console.log('Token is set');
+                }
+    }, [hasToken]);
 
+
+    const onSubmit = async () => {
+        
+        const data = [
+          movieTitle, //Movie 
+          review, //Review 
+          rating //Stars 
+        ];
+        console.log(data)
+        
     }
     const handleRatingChange = (value) => {
         setRating(value);
@@ -49,7 +62,7 @@ const Review = ({movieTitle}) => {
     
     <div>
         <h1>{movieTitle}</h1>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <textarea 
                 {...register("Review", {required: "You must leave a review to rate the movie."})}
                 id="Review"
