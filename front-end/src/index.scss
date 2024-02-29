@@ -35,7 +35,22 @@ $search: #868bb4; //Search Bar
 
 .navBar{
 	margin-Left: "0";
-	padding-Left: "0" 
+	padding-Left: "0"; 
+	text-decoration: none;
+	.homeLink{
+		font-size: 2em;
+		font-weight: bold;
+	}
+	a{
+		text-decoration: none;
+		color: $color;
+		&:hover{
+			color: $gold;
+		}
+	}
+	.navIcon{
+		font-size: 3.5em;
+	}
 }
 
 .searchBar{
@@ -83,39 +98,63 @@ $search: #868bb4; //Search Bar
 		}
 	}
 }
+////////////
 
-
+///Movie Component 
 .moviePage {
     display: flex;
-    flex-direction: column;
+	flex-direction: column;
     align-items: flex-start; 
     padding: 20px;
-	.moviePic{
-		flex: 1;
-		width: 700px;
-		height: auto;
-	}
-	.movieTitle{
-		font-size: 5em;
-		padding: 5px;
-		font-weight: bold;
-		text-decoration: none;
-		text-align: center;
-	}
-	.movieDescription{
-		flex: 2;
-		padding-top: 50px;
-		font-size: 1.2em;
-		text-align: center;
-		width: 50%;
-	}
-	.released{
-		font-weight: bold;
-		font-size: 3em;
+
+	.posterAndDetail{
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+
+		.movieTitle{
+			font-size: 6em;
+			padding: 10px;
+			font-weight: bold;
+			text-decoration: none;
+			text-align: center;
+			width: 50%;
+		}
+		
+		.movieDetails{
+			flex: 1;
+			padding-left: 50px;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: flex-start;
+
+			.moviePic{
+				flex: 1;
+				width: 3000px;
+				height: auto;
+			}
+			
+
+			.movieDescription{
+				flex: 3;
+				padding-top: 50px;
+				font-size: 1.2em;
+				text-align: left;
+				margin-top: 20px;
+				width: 30px;
+			}
+			.released{
+				font-weight: bold;
+				font-size: 3em;
+				margin-top: 20px;
+				text-align: left;
+			}
+		}
 	}
 }
 
-
+///Actors info
 .display{
 	display: flex;
     flex-wrap: nowrap; /* actors stay in a single row */

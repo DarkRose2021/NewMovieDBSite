@@ -51,29 +51,29 @@ const NavBar = ({ siteName, contentComponent }) => {
                         <Navbar.Text className="mx-auto">
                             <h2>
                                 {isLinkDisabled(location.pathname) ? (
-                                    <span>{siteName}</span>
+                                    <span className="homeLink">{siteName}</span>
                                 ) : (
                                     <a href="/" className="homeLink">{siteName}</a>
                                 )}
                             </h2>
                         </Navbar.Text>
+                    <Navbar.Text>
                       {hasToken ? (
-                        <Navbar.Text>
-                            {/* Change to a toggle to show login   signup when not logged in */}
-                            <h1>Your In</h1>
-                            <i className="bi bi-person-circle h1"></i>
-                            <a onClick={handleSignOut} >Log Out</a>
-                        </Navbar.Text>
-                      ) : (
-                        <Navbar.Text>
-                        <NavLink to='/login'>
-                            Login
-                        </NavLink>
-                        </Navbar.Text>
-                      )
-
+                          <>
+                          <div className="d-flex align-items-center">
+                              <i className="bi bi-person-circle h1 navIcon"></i>
+                              <span className="mx-2"></span>
+                          </div>
+                          <a onClick={handleSignOut} className="homeLink" >Log Out</a>
+                      </>
+                        ) : (
+                                <NavLink to='/login'>
+                                    Login
+                                </NavLink>
+                        )
                       }  
-                        
+                                                </Navbar.Text>
+
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
