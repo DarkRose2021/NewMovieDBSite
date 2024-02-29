@@ -53,6 +53,8 @@ $search: #868bb4; //Search Bar
 	}
 }
 
+
+//Searching 
 .searchBar{
 	background-color:$search;
 	color: #FAFAFA;
@@ -64,6 +66,14 @@ $search: #868bb4; //Search Bar
 	}
 
 }
+
+.searchButon{
+	background-color: $search;
+	color: #FAFAFA ;
+}
+//////////////////////////////
+
+
 
 .stars{
 	color: $gold;
@@ -195,31 +205,25 @@ $search: #868bb4; //Search Bar
 }
 
 
+// .form-control{
+// 	background-color: $search;
+// 	width: 25%;
+// 	height: fit-content;
+// 	text-align: center;
+// 	font-weight: bold;
+// 	display: block;
+// 	border-radius: 30px;
+// 	margin: 0 auto; 
+// 	font-size: 2em;
+// 	padding: 3%;
+// 		 .placeholder{
+// 		   color: $gold;
+// 		 }
+// }   
 
 
-
-.searchButon{
-	background-color: $search;
-	color: #FAFAFA ;
-}
-
-.form-control{
-	background-color: $search;
-	width: 25%;
-	height: fit-content;
-	text-align: center;
-	font-weight: bold;
-	display: block;
-	border-radius: 30px;
-	margin: 0 auto; 
-	font-size: 2em;
-	padding: 3%;
-		 .placeholder{
-		   color: $gold;
-		 }
-}   
-
-.SignInForm{
+//Sign up 
+.SignUpForm{
 	margin-top: 2%;      
   	border-radius: 100px;
 	
@@ -245,13 +249,19 @@ $search: #868bb4; //Search Bar
 	
 	.icon-eye {
 		/* Position the eye icon */
-		position: absolute;
-		top: 50%;
-		right: 10px;
 		transform: translateY(-50%);
 		cursor: pointer;
 	  }
 }
+//link to Opposite form
+.goOpposite{
+	margin-top: 40px;
+	font-size: 1.4 em;
+	border-radius: 20px;
+	padding: 0 9px;
+}
+
+///Login 
 
 .loginForm{
 	border-radius: 50px;

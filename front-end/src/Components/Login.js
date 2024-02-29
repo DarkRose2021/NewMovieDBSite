@@ -21,6 +21,11 @@ const {
         setShowPassword(!showPassword);
       };
 
+      const goToClick = () => {
+        navigate('/signup');
+      }
+
+
      const onSubmit = async(data) => {
         console.log("Sending data: ", data)
 
@@ -97,6 +102,7 @@ const {
                
 
             </form>
+            <button className="goOpposite" onClick={goToClick}>Don't Have an acount? Sign up Now!</button>
         </div>
     );
 };

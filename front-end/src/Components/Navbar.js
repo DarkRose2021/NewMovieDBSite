@@ -67,7 +67,7 @@ const NavBar = ({ siteName, contentComponent }) => {
                           <a onClick={handleSignOut} className="homeLink" >Log Out</a>
                       </>
                         ) : (
-                                <NavLink to='/login'>
+                                <NavLink to='/login' className="homeLink">
                                     Login
                                 </NavLink>
                         )
