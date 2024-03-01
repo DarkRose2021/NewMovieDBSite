@@ -40,6 +40,7 @@ module.exports = (app) => {
 				User: {
 					Username: user.Username,
 					Name: user.Name,
+					Roles: user.Role,
 				},
 				Message: "Login successful",
 				token: token,
