@@ -85,7 +85,10 @@ const Movie = () => {
                             {loggedIn ? "Write a Review" : "Sign in to Review"}
                         </button>
                         {reviewClicked && <Review movieTitle={movieData.title} />}
+{/* Will see what reviews are left for the movie, if signed in user has already left a review they can edit their review 
 
+if admin 
+*/}
                         <div className="display">
                             {movieData.actors.map((actor, index) => (
                                 <div key={index} className="actorCards">

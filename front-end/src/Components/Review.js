@@ -15,10 +15,11 @@ const Review = ({movieTitle}) => {
     const [stars, setStars] = useState(0);
     const [review, setReview] = useState('')
     const [submit, setSubmit] = useState(false);
-    const [rating, setRating] = useState(0)
+    const [rating, setRating] = useState(0);
     const hasToken = TokenHook();
     const [isAuthenticated, setIsAuthenticated] = useState(false)
 
+    const user = localStorage.getItem("user");
     //api call: `http://localhost:8080/reviewMovie/${username}`
     // Needs this info:
     // "MovieName": "In Time",
@@ -42,10 +43,22 @@ const Review = ({movieTitle}) => {
         const data = [
           movieTitle, //Movie 
           review, //Review 
-          rating //Stars 
+          rating, //Stars 
+          user , //User posted 
         ];
         console.log(data)
-        
+
+        const response = await fetch(`http://localhost:8080/reviewMovie/${user}`, {
+            method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            console.log("The response :", data)
+        })
     }
     const handleRatingChange = (value) => {
         setRating(value);
