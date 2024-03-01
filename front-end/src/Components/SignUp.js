@@ -1,6 +1,8 @@
 //form to sign up for an account
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
 const SignUp = () => {
 	//api call: `http://localhost:8080/signup`
 
@@ -11,6 +13,7 @@ const SignUp = () => {
 		watch,
 	} = useForm();
 
+    const navigate = useNavigate();
 	const [showPassword, setShowPassword] = useState(false);
 
 	const togglePassword = () => {
@@ -40,9 +43,15 @@ const SignUp = () => {
 		}
 	};
 
+
+
+	const goToClick = () => {
+		navigate('/login');
+	}
+
 	return (
-		<div className="signUp">
-			<form onSubmit={handleSubmit(onSubmit)}>
+		<div className="container d-flex flex-column justify-content-center align-items-center">
+			<form onSubmit={handleSubmit(onSubmit)} className="SignUpForm" >
 				<input
 					{...register("username", { required: "Email is required" })}
 					id="username"
@@ -90,6 +99,8 @@ const SignUp = () => {
 
 				<input type="submit" />
 			</form>
+			<button className="goOpposite" onClick={goToClick} >Have an acount? Login here!</button>
+
 		</div>
 	);
 };
