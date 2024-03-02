@@ -16,37 +16,37 @@ module.exports = (app) => {
 				return;
 			}
 
-		// Check if the entered password is correct
-		console.log("Stored hashed password:", user.Password);
-		console.log("Entered password:", password);
+			// Check if the entered password is correct
+			console.log("Stored hashed password:", user.Password);
+			console.log("Entered password:", password);
 
-		const isPasswordValid = await bcryptjs.compare(password, user.Password);
-		console.log("Is password valid:", isPasswordValid);
+			const isPasswordValid = await bcryptjs.compare(password, user.Password);
+			console.log("Is password valid:", isPasswordValid);
 
-		if (isPasswordValid) {
-			const token = jwt.sign({ username: username }, secretKey, {
-				expiresIn: "1h",
-			});
-			res.json({
-				User: {
-					Username: user.Username,
-					Name: user.Name,
-					Roles: user.Role,
-				},
-				Message: "Login successful",
-				token: token,
-			});
-		} else {
-			res.json({
-				Message: "Incorrect password. Please try again.",
-			});
+			if (isPasswordValid) {
+				const token = jwt.sign({ username: username }, secretKey, {
+					expiresIn: "1h",
+				});
+				res.json({
+					User: {
+						Username: user.Username,
+						Name: user.Name,
+						Roles: user.Role,
+					},
+					Message: "Login successful",
+					token: token,
+				});
+			} else {
+				res.json({
+					Message: "Incorrect password. Please try again.",
+				});
+			}
+		} catch (error) {
+			console.error(error);
+			throw error;
 		}
-	} catch (error) {
-		console.error(error);
-		throw error;
 	});
 
-	// done in the dal
 	app.post("/signup", async (req, res) => {
 		const email = req.body.username;
 		const password = req.body.password;
