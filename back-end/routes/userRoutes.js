@@ -41,6 +41,9 @@ module.exports = (app) => {
 				Message: "Incorrect password. Please try again.",
 			});
 		}
+	} catch (error) {
+		console.error(error);
+		throw error;
 	});
 
 	// done in the dal
