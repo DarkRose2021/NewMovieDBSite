@@ -92,7 +92,38 @@ module.exports = {
 		return await searchResponse.json();
 	},
 
+	getActorDetails: async (actorID) => {
+		const url = `https://api.themoviedb.org/3/person/${actorID}?language=en-US`;
+		const searchResponse = await fetch(url, {
+			method: "GET",
+			headers: commonHeaders,
+		});
+		return await searchResponse.json();
+	},
+
 	updateMovieDetails: (movie, genreMapping, castJson) => {
+		let castData = castJson;
+
+		if (Array.isArray(castJson)) {
+			castData = castJson;
+		} else if (castJson.cast && Array.isArray(castJson.cast)) {
+			castData = castJson.cast;
+		} else {
+			console.error("Invalid castJson structure");
+			return null;
+		}
+
+		const actorsData = castData.filter(
+			(actor) => actor.known_for_department === "Acting"
+		);
+
+		const actorsWithIdAndName = actorsData.map((actor) => {
+			return {
+				id: actor.id,
+				name: actor.name,
+			};
+		});
+
 		return {
 			title: movie.title,
 			id: movie.id,
@@ -100,45 +131,101 @@ module.exports = {
 			vote_average: Math.round(movie.vote_average * 0.5),
 			release_date: movie.release_date,
 			genres: movie.genre_ids.map((genreId) => genreMapping[genreId]),
-			actors: castJson.cast.map((actor) => actor.name),
+			actors: actorsWithIdAndName,
 		};
 	},
 
 	updateOneMovieDetails: (movie, castJson) => {
+		let castData = castJson;
+
+		if (Array.isArray(castJson)) {
+			castData = castJson;
+		} else if (castJson.cast && Array.isArray(castJson.cast)) {
+			castData = castJson.cast;
+		} else {
+			console.error("Invalid castJson structure");
+			return null;
+		}
+
+		const actorsData = castData.filter(
+			(actor) => actor.known_for_department === "Acting"
+		);
+
+		console.log("castData:", castData);
+		console.log("actorsData:", actorsData);
+
+		const actorsWithIdAndName = actorsData.map((actor) => {
+			return {
+				id: actor.id,
+				name: actor.name,
+			};
+		});
+
 		return {
 			title: movie.title,
 			id: movie.id,
 			poster_path: movie.poster_path,
 			vote_average: Math.round(movie.vote_average * 0.5),
-			description: movie.overview,
 			release_date: movie.release_date,
-			actors: castJson.cast.map((actor) => actor.name),
+			backdrop_path: movie.backdrop_path,
+			overview: movie.overview,
+			// genres: movie.genre_ids.map((genreId) => genreMapping[genreId]),
+			actors: actorsWithIdAndName,
 		};
 	},
 
 	// Finished
 	updateActorMovieDetails: (actors, genreMapping) => {
-			const actorsData = actors.results.filter(
-				(result) => result.known_for_department === "Acting"
-			);
-			const filteredActors = actorsData.map((actor) => {
-				const filteredKnownFor = actor.known_for.map((movie) => {
-					return {
-						id: movie.id,
-						movie_name: movie.title,
-						genres: movie.genre_ids.map((genreId) => genreMapping[genreId]),
-						poster_path: movie.poster_path,
-						vote_average: Math.round(movie.vote_average * 0.5),
-						release_date: movie.release_date,
-					};
-				});
-
+		const actorsData = actors.results.filter(
+			(result) => result.known_for_department === "Acting"
+		);
+		const filteredActors = actorsData.map((actor) => {
+			const filteredKnownFor = actor.known_for.map((movie) => {
 				return {
-					name: actor.name,
-					known_for: filteredKnownFor,
+					id: movie.id,
+					movie_name: movie.title,
+					genres: movie.genre_ids.map((genreId) => genreMapping[genreId]),
+					poster_path: movie.poster_path,
+					vote_average: Math.round(movie.vote_average * 0.5),
+					backdrop_path: movie.backdrop_path,
+					overview: movie.overview,
+					release_date: movie.release_date,
 				};
 			});
 
-			return filteredActors;
+			return {
+				name: actor.name,
+				known_for: filteredKnownFor,
+			};
+		});
+
+		return filteredActors;
+	},
+
+	updateActorDetails: (actor) => {
+		let gender;
+		switch (actor.gender) {
+			case 1:
+				gender = "Female";
+				break;
+			case 2:
+				gender = "Male";
+				break;
+			case 3:
+				gender = "Non-binary";
+				break;
+			default:
+				gender = "Not set / not specified";
+		}
+		return {
+			name: actor.name,
+			bio: actor.biography,
+			birthday: actor.birthday,
+			deathday: actor.deathday,
+			gender: gender,
+			birthPlace: actor.place_of_birth,
+			profile: actor.profile_path,
+			knowAs: actor.also_known_as,
+		};
 	},
 };

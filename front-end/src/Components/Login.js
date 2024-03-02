@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import TokenHook from "./TokenHook";
 import {useForm} from 'react-hook-form'
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 const {
@@ -9,80 +10,102 @@ const {
     handleSubmit, 
     formState: {errors},
     watch} = useForm();
-    const [username, setUsername] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const password = watch(["password", ""]);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate();
+
     const hasToken = TokenHook();
 
     const togglePassword = () => {
         setShowPassword(!showPassword);
       };
 
-     const onSubmit = async(data) => {
-        console.log("Sending data")
-     }
+      const goToClick = () => {
+        navigate('/signup');
+      }
 
+
+     const onSubmit = async(data) => {
+        console.log("Sending data: ", data)
+
+        try{
+            const response = await fetch("http://localhost:8080/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log("Got it~!", data)
+                const token = data.token;
+                const user = data.User.Username;
+                if(token){
+                    console.log("Putting Token in stoarge")
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('user', user )
+                    setIsAuthenticated(true);
+                    navigate('/');
+                }
+            })
+            .catch((err) => {
+                console.error("Error: ", err)
+            });
+        }
+        catch(err){
+            console.error("Error sending the data back: ", err)
+        }
+     }
+            
+     useEffect(() => {
+        if (hasToken) {
+            setIsAuthenticated(true);
+            console.log('Token is set');
+                }
+    }, [hasToken]);
     //api call: `http://localhost:8080/login`
 	return (
         <div className="container d-flex flex-column justify-content-center align-items-center">
 
-        <form className="loginForm" onSubmit={handleSubmit}>
+            <form className="loginForm" onSubmit={handleSubmit(onSubmit)}>
+             
+              <div>
+                  <input {...register("username", 
+                    {required: "Username is required"})}  
+                    placeholder="Username" 
+                    className="login"
+                />
+              </div>
+              <div >
 
-             <input {...register("username", {required: "Username is required"})}  placeholder="Username" onChange={(e) => setUsername} />
+              </div>
 
+                <input {...register("password", 
+                    {required: "Password is required"})} 
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    className="login"
+                />
 
+                <span className="icon-eye" onClick={togglePassword}>
+                    {showPassword ? (
+                        <i className="bi bi-eye"></i>
+                    ) : (
+                        <i className="bi bi-eye-slash"></i>
+                    )}
+                </span>
 
-            <input {...register("password", 
-                {required: "PAssword is required"})} 
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"/>
+                <div>
+                     <input className="loginButton"
+                type="submit" />
+                </div>
+               
 
-            <span className="icon-eye" onClick={togglePassword}>
-                {showPassword ? (
-                    <i className="bi bi-eye"></i>
-                ) : (
-                    <i className="bi bi-eye-slash"></i>
-                )}
-            </span>
-
-            <input type="submit" />
-
-        </form>
-
-{/* 
-            <div className="SignInForm">
-            
-            <h1 className="Title SignInForm">Sign In</h1>
-
-            <label className="SignInForm mt-2 formLabel">Username:</label>
-            <input
-            className=" SignInForm mb-3 form-control"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            />
-
-                <div className="form-group">
-                    
-                        <label className="SignInForm formLabel">Password:</label>
-                        <div className="input-group">
-                            <input
-                                className={`SignInForm form-control ${showPassword ? "showPassword" : ""}`}
-                                type={showPassword ? "text" : "password"}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                />
-                                <span className="icon-eye" onClick={togglePassword}>
-                                {showPassword ? (
-                                    <i className="bi bi-eye"></i>
-                                ) : (
-                                    <i className="bi bi-eye-slash"></i>
-                                )}
-                                </span>
-                        </div>
-                </div> */}
-            </div>
-        // </div>
+            </form>
+            <button className="goOpposite" onClick={goToClick}>Don't Have an acount? Sign up Now!</button>
+        </div>
     );
 };
 

@@ -16,20 +16,30 @@ module.exports = (app) => {
 				return;
 			}
 
-			const checkPasswords = await bcryptjs.compare(password, found.Password);
+		// Check if the entered password is correct
+		console.log("Stored hashed password:", user.Password);
+		console.log("Entered password:", password);
 
-			if (checkPasswords) {
-				const plainUser = found.toObject();
+		const isPasswordValid = await bcryptjs.compare(password, user.Password);
+		console.log("Is password valid:", isPasswordValid);
 
-				const modifiedUser = { ...plainUser, Username: plainUser.Email };
-				delete modifiedUser.Email;
-				res.json({ Message: `${found.Email} found`, User: modifiedUser });
-			} else {
-				res.json({ Message: "Invalid Email or password" });
-			}
-		} catch (error) {
-			console.error(error);
-			res.status(500).json({ Message: "An error occurred" });
+		if (isPasswordValid) {
+			const token = jwt.sign({ username: username }, secretKey, {
+				expiresIn: "1h",
+			});
+			res.json({
+				User: {
+					Username: user.Username,
+					Name: user.Name,
+					Roles: user.Role,
+				},
+				Message: "Login successful",
+				token: token,
+			});
+		} else {
+			res.json({
+				Message: "Incorrect password. Please try again.",
+			});
 		}
 	});
 

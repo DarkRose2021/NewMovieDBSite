@@ -22,11 +22,39 @@ $search: #868bb4; //Search Bar
 }
 
 
-.navBar{
-	margin-Left: "0";
-	padding-Left: "0" 
+
+
+.star{
+	color: white;
+	cursor: pointer;
+	font-size: 5em;	
+}
+.filled {
+    color: $gold; 
 }
 
+.navBar{
+	margin-Left: "0";
+	padding-Left: "0"; 
+	text-decoration: none;
+	.homeLink{
+		font-size: 2em;
+		font-weight: bold;
+	}
+	a{
+		text-decoration: none;
+		color: $color;
+		&:hover{
+			color: $gold;
+		}
+	}
+	.navIcon{
+		font-size: 3.5em;
+	}
+}
+
+
+//Searching 
 .searchBar{
 	background-color:$search;
 	color: #FAFAFA;
@@ -39,45 +67,163 @@ $search: #868bb4; //Search Bar
 
 }
 
-.movieCard{
-	width: 18rem;
-	color: $color;
-	background-color: $space-cadet-2;
-	z-index: -2;
-	margin: 1%;
-	height: 50%;
-	text-align: center;
-	padding: 20px;
-	.movieTitle{
-		padding: 10px;
-	}
-	.movieDescription{
-		padding: 10px;
-	}
-}
-
 .searchButon{
 	background-color: $search;
 	color: #FAFAFA ;
 }
+//////////////////////////////
 
-.form-control{
-	background-color: $search;
-	width: 25%;
-	height: fit-content;
-	text-align: center;
-	font-weight: bold;
-	display: block;
-	border-radius: 30px;
-	margin: 0 auto; 
-	font-size: 2em;
-	padding: 3%;
-		 .placeholder{
-		   color: $gold;
-		 }
-}   
 
-.SignInForm{
+
+.stars{
+	color: $gold;
+	font-size: 6em;
+	display: flex;
+	justify-content: center;
+	margin-right: 15% ;
+	
+}
+//For Home Component: 
+
+.movieCards{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	text-decoration: none;
+	width: fit-content;
+	height: auto;
+	.movieCard{
+		width: 25rem;
+		color: $color;
+		background-color: $space-cadet-2;
+		z-index: -2;
+		margin: 1%;
+		height: fit-content;
+		text-align: center;
+		padding: 20px;
+		text-decoration: none;
+		.movieTitle{
+			font-size: 2em;
+			font-weight: bold;
+		}
+	}
+}
+////////////
+
+///Movie Component 
+.moviePage {
+    display: flex;
+	flex-direction: column;
+    align-items: flex-start; 
+    padding: 20px;
+
+	.posterAndDetail{
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+
+		.movieTitle{
+			font-size: 6em;
+			padding: 10px;
+			font-weight: bold;
+			text-decoration: none;
+			text-align: center;
+			width: 50%;
+		}
+		
+		.movieDetails{
+			flex: 1;
+			padding-left: 50px;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: flex-start;
+
+			.moviePic{
+				flex: 1;
+				width: 3000px;
+				height: auto;
+			}
+			
+
+			.movieDescription{
+				flex: 3;
+				padding-top: 50px;
+				font-size: 1.2em;
+				text-align: left;
+				margin-top: 20px;
+				width: 30px;
+			}
+			.released{
+				font-weight: bold;
+				font-size: 3em;
+				margin-top: 20px;
+				text-align: left;
+			}
+		}
+	}
+}
+
+///Actors info
+.display{
+	display: flex;
+    flex-wrap: nowrap; /* actors stay in a single row */
+    overflow-x: auto; /* Enable horizontal scrolling if necessary */
+    padding: 10px;
+    width: 100%; 
+	gap: 20px;
+	.actorCards {
+		flex: 1 0 20%;
+    	padding: 10px;
+		.actorCard {
+			width: fit-content;
+			color: $color;
+			background-color: $space-cadet-2;
+			height: fit-content;
+			text-align: center;
+			padding: 10px;
+			text-decoration: none;
+			.collapsed{
+				max-height: 100px;
+				overflow: hidden;
+				transition: max-height 0.3s ease;
+				cursor: pointer;
+				margin-bottom: 10px;
+				border-bottom: 2px solid red;
+			}
+			.expanded{
+				max-height: none;
+				overflow: auto;
+			}
+			.pfp{
+				width: fit-content;
+				height: 500px;
+			}
+		}
+		
+	}
+}
+
+
+// .form-control{
+// 	background-color: $search;
+// 	width: 25%;
+// 	height: fit-content;
+// 	text-align: center;
+// 	font-weight: bold;
+// 	display: block;
+// 	border-radius: 30px;
+// 	margin: 0 auto; 
+// 	font-size: 2em;
+// 	padding: 3%;
+// 		 .placeholder{
+// 		   color: $gold;
+// 		 }
+// }   
+
+
+//Sign up 
+.SignUpForm{
 	margin-top: 2%;      
   	border-radius: 100px;
 	
@@ -103,10 +249,33 @@ $search: #868bb4; //Search Bar
 	
 	.icon-eye {
 		/* Position the eye icon */
-		position: absolute;
-		top: 50%;
-		right: 10px;
 		transform: translateY(-50%);
 		cursor: pointer;
 	  }
+}
+//link to Opposite form
+.goOpposite{
+	margin-top: 40px;
+	font-size: 1.4 em;
+	border-radius: 20px;
+	padding: 0 9px;
+}
+
+///Login 
+
+.loginForm{
+	border-radius: 50px;
+	
+
+	.login{
+		border-radius: 50px;
+		text-align: center;
+		font-size: 1.5em;
+		width: 1000px;
+
+	}
+	.loginButton{
+		border-radius: 50px;
+		font-size: 1.5em;
+	}
 }

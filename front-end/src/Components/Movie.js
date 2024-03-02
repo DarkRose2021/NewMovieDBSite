@@ -1,98 +1,108 @@
-//all the information that is gotten from the api with a button that lets you leave a review if your signed in
 import React, { useEffect, useState } from "react";
+import Actor from "./Actor";
+import { useParams, useNavigate } from "react-router-dom";
+import { Carousel } from 'react-bootstrap';
+import Review from "./Review";
 
 const Movie = () => {
-    //api call: `http://localhost:8080/oneMovie/${movieID}`
-    //returns:
-    // {
-    //     "title": "Lift",
-    //     "id": 955916,
-    //     "poster_path": "/46sp1Z9b2PPTgCMyA87g9aTLUXi.jpg",
-    //     "vote_average": 3,
-    //     "release_date": "2024-01-10",
-    //     "actors": [
-    //         array of names
-    //     ]
-    // }
-
-
-    //get stuff back from api 
-    //put it in variables 
-    //display the information
-
-    //filled star : <i class="bi bi-star-fill"></i>
-
-    //empty star : <i class="bi bi-star"></i>
-
-    //partical star : <i class="bi bi-star-half"></i>
-
-
-
-//!!!!!!!!!!!!******************************
-//        Different ways to get movie id
-//              Click on the movie card 
-//              search for specific movie 
-//
+    const {id} = useParams();
+ 
     const [movieData, setMovieData] = useState(null);
-    const [movieID, setMovieID] = useState();
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [reviewClicked, setReviewClicked] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        setLoggedIn(!!token);
+
         const fetchMovieData = async () => {
-            try{
-                const response = await fetch(`http:localhost:8080/oneMovie/955916`);
+            try {
+                const response = await fetch(`http://localhost:8080/oneMovie/${id}`, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json', 
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
                 const data = await response.json();
                 setMovieData(data);
-            }
-            catch(err){
-                console.error("Error fetching movie data: ", err)
+            } catch(error) {
+                console.error("Error fetching movie data:", error);
             }
         };
         fetchMovieData();
-    }, [movieID]);
+    }, [id]);
 
+    // Function to generate star icons based on the average rating
+    const renderStars = (averageRating) => {
+        const stars = [];
+        const filledStars = Math.round(averageRating);
 
-//************
-    //Render Stars function generated from chatGPT
+        for (let i = 0; i < filledStars; i++) {
+            stars.push(<i key={i} className="bi bi-star-fill" style={{ marginRight: '20px' }}></i>);
+        }
 
-        // Function to generate star icons based on the average rating
-        const renderStars = (averageRating) => {
-            const stars = [];
-            const filledStars = Math.floor(averageRating / 2);
-            const hasHalfStar = averageRating % 2 !== 0;
+        const emptyStars = 5 - filledStars;
+        for (let i = 0; i < emptyStars; i++) {
+            stars.push(<i key={`empty-${i}`} className="bi bi-star" style={{ marginRight: '20px' }}></i>);
+        }
 
-            for (let i = 0; i < filledStars; i++) {
-            stars.push(<i key={i} className="bi bi-star-fill"></i>);
-            }
+        return stars;
+    };
 
-            if (hasHalfStar) {
-            stars.push(<i key="half" className="bi bi-star-half"></i>);
-            }
+    const handleSignInClick = () => {
+        if (!loggedIn) {
+            navigate('/signup');
+        }
+        else{
+            setReviewClicked(true)
+        }
+    };
 
-            const emptyStars = 5 - filledStars - (hasHalfStar ? 1 : 0);
-            for (let i = 0; i < emptyStars; i++) {
-            stars.push(<i key={`empty-${i}`} className="bi bi-star"></i>);
-            }
+    return (
+        <div>
+            <div>
+                {movieData ? (
+                    <>         
+                    <div className="moviePage">
+                            <div className="posterAndDetail">
+                                <h1 className="movieTitle">{movieData.title}</h1>
+                                <div className="movieDetails">
+                                    
+                                    <img src={`https://image.tmdb.org/t/p/w300/${movieData.poster_path}`} className="moviePic" style={{ backgroundImage: `url('https://image.tmdb.org/t/p/w300/${movieData.backdrop_path})`}} alt={movieData.title} />
+                                    <p className="movieDescription">{movieData.overview}</p>
+                                    <h4 className="released">{movieData.release_date}</h4>
+                                    
+                                </div>
+                                <p className="stars">{renderStars(movieData.vote_average)}</p> 
+                            </div>
+                            
+                    
+                        <button onClick={handleSignInClick}>
+                            {loggedIn ? "Write a Review" : "Sign in to Review"}
+                        </button>
+                        {reviewClicked && <Review movieTitle={movieData.title} />}
+{/* Will see what reviews are left for the movie, if signed in user has already left a review they can edit their review 
 
-            return stars;
-        };
-//
-
-  
-
-
-	return (
-    <div>
-
-       //Movie Poster 
-       //Movie discription 
-        //Genre 
-        //Actors 
-        //amount of stars : renderStars()
-        //if signed in button to write a review as long as they havent written one for that movie before
-        //if not have button that takes takes to sign up form
-        
-        
-    </div>
+if admin 
+*/}
+                        <div className="display">
+                            {movieData.actors.map((actor, index) => (
+                                <div key={index} className="actorCards">
+                                    <Actor key={actor.id} actor={actor} />
+                                </div>
+                            ))}
+                        </div>    
+                    </div>   
+                    </>
+                ) : (
+                    <p>Loading...</p>
+                )}
+            </div>
+        </div>
     );
 };
 

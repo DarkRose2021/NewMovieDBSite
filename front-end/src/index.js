@@ -7,8 +7,8 @@ import NavBar from "./Components/Navbar";
 import Home from "./Components/Home";
 import Login from "./Components/Login";
 import SignUp from "./Components/SignUp";
-import Search from "./Components/Search";
 import Movie from "./Components/Movie";
+import Review from "./Components/Review";
 
 const url = "http://localhost:8080";
 
@@ -18,7 +18,9 @@ const router = createBrowserRouter([
 		path: "/",
 		element: (
 			<>
-				<NavBar siteName="My Website" contentComponent={<Home />} />
+				<NavBar siteName="My Website" 
+					contentComponent={
+					<Home />} />
 			</>
 		),
 	},
@@ -27,7 +29,9 @@ const router = createBrowserRouter([
 		path: "/login",
 		element: (
 			<>
-				<NavBar siteName="My Website" contentComponent={<Login />} />
+				<NavBar siteName="My Website" 
+					contentComponent={
+					<Login />} />
 			</>
 		),
 	},
@@ -36,15 +40,30 @@ const router = createBrowserRouter([
 		path: "/signup",
 		element: (
 			<>
-				<NavBar siteName="My Website" contentComponent={<SignUp />} />
+				<NavBar siteName="My Website" 
+					contentComponent={
+					<SignUp />} />
 			</>
 		),
 	},
 	{
-		path: "/movie",
+		path: "/movie/:id",
 		element: (
 			<> 
-				<NavBar siteName="My Website" contentComponent={<Movie />} />
+			 
+					<NavBar siteName="My Website" 
+						contentComponent={
+							<Movie  />} />
+			  
+			</>
+		)
+	},
+	{
+		path:"/review",
+		element: (
+			<>
+				<NavBar siteName={"My Site"}
+					contentComponent={<Review />}/>
 			</>
 		)
 	},
