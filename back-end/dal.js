@@ -32,6 +32,17 @@ const user = new Schema(
 );
 const userModel = mongoose.model("user", user);
 
+const review = new Schema(
+	{
+		MovieName: String,
+		starAmount: String,
+		ReviewTxt: String,
+		UserPosted: String,
+	},
+	{ collection: config.reviewCollection }
+);
+const reviewModel = mongoose.model("review", review);
+
 exports.dal = {
 	createUser: async (email, name, password) => {
 		const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -77,14 +88,14 @@ exports.dal = {
 	listUsers: async () => {
 		return await userModel.find({}).exec();
 	},
-	deleteUser: async (email) =>{
+	deleteUser: async (email) => {
 		let user = await userModel.collection.findOne({
 			Email: email,
 		});
-	
+
 		if (user !== null) {
 			await userModel.collection.deleteOne({
-				Email: email
+				Email: email,
 			});
 		}
 	},
@@ -97,4 +108,27 @@ exports.dal = {
 			throw error;
 		}
 	},
+
+	createReview: async (movie, star, review, user) => {
+		let reviewObj = {
+			MovieName: movie,
+			starAmount: star,
+			ReviewTxt: review,
+			UserPosted: user,
+		}
+
+		try{
+			let newReview = await reviewModel.create(reviewObj)
+			return newReview
+		}catch (error) {
+			console.error(error);
+			throw error;
+		}
+	},
+	allReviews: async () =>{
+		return await reviewModel.find({}).exec();
+	},
+	deleteReview: async (id) =>{
+		return await reviewModel.findByIdAndDelete(id)
+	}
 };

@@ -67,21 +67,19 @@ module.exports = (app) => {
 		users = await dal.listUsers();
 		res.json(users);
 	});
-	
-	app.post("/reviewMovie/:username", (req, res) => {
+
+	app.post("/reviewMovie/:username", async (req, res) => {
 		const movieName = req.body.movieName;
 		const starAmount = req.body.starAmount;
 		const textBox = req.body.textBox;
 		const username = req.params.username;
 
-		const newReview = {
-			MovieName: movieName,
-			starAmount: starAmount,
-			ReviewTxt: textBox,
-			UserPosted: username,
-		};
-		//ref dal to send the info to the dal
-		userService.addReview(newReview);
+		let newReview = await dal.createReview(
+			movieName,
+			starAmount,
+			textBox,
+			username
+		);
 
 		res.json({
 			User: newReview,
@@ -89,25 +87,25 @@ module.exports = (app) => {
 		});
 	});
 
-	app.post("/deleteReview/:id", (req, res) => {
+	app.post("/deleteReview/:id", async (req, res) => {
 		const id = req.params.id;
-		//ref dal to send the info to the dal
-		userService.deleteReview(id);
+		await dal.deleteReview(id);
+		let reviews = await dal.allReviews();
 
-		res.json({ Message: "Review Deleted" });
+		res.json({ Message: "Review Deleted", Reviews: reviews });
 	});
 
-	app.get("/allReviews", (req, res) => {
+	app.get("/allReviews", async (req, res) => {
 		res.json({
 			Message: "All Reviews",
-			Reviews: userService.allReviews(),
+			Reviews: await dal.allReviews(),
 		});
 	});
 
-	app.get("/allUsers", (req, res) => {
+	app.get("/allUsers", async (req, res) => {
 		res.json({
 			Message: "All Users",
-			Reviews: userService.allUsers(),
+			Reviews: await dal.listUsers(),
 		});
 	});
 };
