@@ -1,29 +1,20 @@
 const bcryptjs = require("bcryptjs");
 const userService = require("../services/userService");
-const jwt = require("jsonwebtoken"); //token for sign in
-const crypto = require("crypto");
-
-const generateSecretKey = () => {
-	return crypto.randomBytes(16).toString("hex");
-};
-
-const secretKey = generateSecretKey(); //secret key for token
+const dal = require("../dal").dal;
 
 module.exports = (app) => {
 	app.post("/login", async (req, res) => {
-		const username = req.body.username;
+		const email = req.body.username;
 		const password = req.body.password;
-		//ref dal to send the info to the dal
-		const user = userService.getUser(username);
-		console.log(user);
 
-		// Check if the user exists
-		if (!user) {
-			res.json({
-				Message: "User not found. Please check your username.",
-			});
-			return;
-		}
+		try {
+			const found = await dal.findUserEmail(email);
+			console.log(found);
+
+			if (!found) {
+				res.json({ Message: "Invalid Email or password" });
+				return;
+			}
 
 		// Check if the entered password is correct
 		console.log("Stored hashed password:", user.Password);
@@ -50,22 +41,18 @@ module.exports = (app) => {
 				Message: "Incorrect password. Please try again.",
 			});
 		}
+	} catch (error) {
+		console.error(error);
+		throw error;
 	});
 
+	// done in the dal
 	app.post("/signup", async (req, res) => {
-		const username = req.body.username;
+		const email = req.body.username;
 		const password = req.body.password;
 		const name = req.body.name;
 
-		const newUser = {
-			Username: username,
-			Password: password,
-			Name: name,
-			Role: ["Client"],
-		};
-
-		//ref dal to send the info to the dal
-		userService.addUser(newUser);
+		let newUser = await dal.createUser(email, name, password);
 
 		res.json({
 			User: newUser,
@@ -73,20 +60,39 @@ module.exports = (app) => {
 		});
 	});
 
-	app.post("/reviewMovie/:username", (req, res) => {
+	app.get("/deleteUser/:email", async (req, res) => {
+		const email = req.params.email;
+		let users = await dal.listUsers();
+		let beforeDel = users.length;
+
+		await dal.deleteUser(email);
+		users;
+		let afterDel = users.length;
+
+		if (afterDel < beforeDel) {
+			res.json({ Message: "User Deleted", Users: users });
+		} else {
+			res.json({ Message: "User Not Deleted", Users: users });
+		}
+	});
+
+	app.get("/listUsers", async (req, res) => {
+		users = await dal.listUsers();
+		res.json(users);
+	});
+
+	app.post("/reviewMovie/:username", async (req, res) => {
 		const movieName = req.body.movieName;
 		const starAmount = req.body.starAmount;
 		const textBox = req.body.textBox;
 		const username = req.params.username;
 
-		const newReview = {
-			MovieName: movieName,
-			starAmount: starAmount,
-			ReviewTxt: textBox,
-			UserPosted: username,
-		};
-		//ref dal to send the info to the dal
-		userService.addReview(newReview);
+		let newReview = await dal.createReview(
+			movieName,
+			starAmount,
+			textBox,
+			username
+		);
 
 		res.json({
 			User: newReview,
@@ -94,25 +100,25 @@ module.exports = (app) => {
 		});
 	});
 
-	app.post("/deleteReview/:id", (req, res) => {
+	app.post("/deleteReview/:id", async (req, res) => {
 		const id = req.params.id;
-		//ref dal to send the info to the dal
-		userService.deleteReview(id);
+		await dal.deleteReview(id);
+		let reviews = await dal.allReviews();
 
-		res.json({ Message: "Review Deleted" });
+		res.json({ Message: "Review Deleted", Reviews: reviews });
 	});
 
-	app.get("/allReviews", (req, res) => {
+	app.get("/allReviews", async (req, res) => {
 		res.json({
 			Message: "All Reviews",
-			Reviews: userService.allReviews(),
+			Reviews: await dal.allReviews(),
 		});
 	});
 
-	app.get("/allUsers", (req, res) => {
+	app.get("/allUsers", async (req, res) => {
 		res.json({
 			Message: "All Users",
-			Reviews: userService.allUsers(),
+			Reviews: await dal.listUsers(),
 		});
 	});
 };
