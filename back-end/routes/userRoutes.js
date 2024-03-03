@@ -1,6 +1,7 @@
 const bcryptjs = require("bcryptjs");
-const userService = require("../services/userService");
 const dal = require("../dal").dal;
+const jwt = require("jsonwebtoken"); //token for sign in
+const crypto = require("crypto");
 
 module.exports = (app) => {
 	app.post("/login", async (req, res) => {
@@ -19,13 +20,13 @@ module.exports = (app) => {
 			const checkPasswords = await bcryptjs.compare(password, found.Password);
 
 			if (checkPasswords) {
-				const token = jwt.sign({ username: username }, secretKey, {
-					expiresIn: "1h",
-				});
 				const plainUser = found.toObject();
 
 				const modifiedUser = { ...plainUser, Username: plainUser.Email };
 				delete modifiedUser.Email;
+				const token = jwt.sign({ username: username }, secretKey, {
+					expiresIn: "1h",
+				});
 				res.json({
 					Message: `${found.Email} found`,
 					User: modifiedUser,
