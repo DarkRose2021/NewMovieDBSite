@@ -40,8 +40,8 @@ const {
             .then((resp) => resp.json())
             .then((data) => {
                 console.log("Got it~!", data)
-                const token = data.token;
-                const user = data.User.Username;
+                const {token, user} = data
+            
                 if(token){
                     console.log("Putting Token in stoarge")
                     localStorage.setItem('token', token);

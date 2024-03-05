@@ -3,6 +3,14 @@ const dal = require("../dal").dal;
 const jwt = require("jsonwebtoken"); //token for sign in
 const crypto = require("crypto");
 
+const generateSecretKey = () => {
+	return crypto.randomBytes(16).toString('hex');
+  };
+  const secretKey = generateSecretKey(); // Generate your secret key
+
+
+
+
 module.exports = (app) => {
 	app.post("/login", async (req, res) => {
 		const email = req.body.username;
@@ -24,7 +32,7 @@ module.exports = (app) => {
 
 				const modifiedUser = { ...plainUser, Username: plainUser.Email };
 				delete modifiedUser.Email;
-				const token = jwt.sign({ username: username }, secretKey, {
+				const token = jwt.sign({ email: email }, secretKey, {
 					expiresIn: "1h",
 				});
 				res.json({
