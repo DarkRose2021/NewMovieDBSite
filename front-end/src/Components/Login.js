@@ -39,13 +39,16 @@ const {
             })
             .then((resp) => resp.json())
             .then((data) => {
-                console.log("Got it~!", data)
-                const {token, user} = data
-            
+                // console.log("Got it~!", data)
+                const {token, User} = data;
+                const { Username, Roles } = User;
+                // console.log("Username: ", Username)
+                // console.log("Role", Roles[0])
                 if(token){
-                    console.log("Putting Token in stoarge")
+                    // console.log("Putting Token in stoarge")
                     localStorage.setItem('token', token);
-                    localStorage.setItem('user', user )
+                    localStorage.setItem('user', Username );
+                    localStorage.setItem('role', Roles[0]);
                     setIsAuthenticated(true);
                     navigate('/');
                 }

@@ -33,19 +33,18 @@ const Review = ({movieTitle}) => {
     useEffect(() => {
         if (hasToken) {
             setIsAuthenticated(true);
-            console.log('Token is set');
+            // console.log('Token is set');
                 }
     }, [hasToken]);
 
 
     const onSubmit = async () => {
         
-        const data = [
-          movieTitle, //Movie 
-          review, //Review 
-          rating, //Stars 
-          user , //User posted 
-        ];
+        const data = {
+          movieName: movieTitle, //Movie 
+          textBox: review, //Review 
+          starAmount: rating, //Stars 
+    };
         console.log(data)
 
         const response = await fetch(`http://localhost:8080/reviewMovie/${user}`, {
@@ -53,6 +52,7 @@ const Review = ({movieTitle}) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                
                 body: JSON.stringify(data)
         })
         .then((resp) => resp.json())

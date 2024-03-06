@@ -14,6 +14,9 @@ const NavBar = ({ siteName, contentComponent }) => {
 
     const handleSignOut = () => {
         localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        localStorage.removeItem('role')
+
         window.location.reload()
       }
     
@@ -72,7 +75,7 @@ const NavBar = ({ siteName, contentComponent }) => {
                                 </NavLink>
                         )
                       }  
-                                                </Navbar.Text>
+                     </Navbar.Text>
 
                     </Navbar.Collapse>
                 </Container>

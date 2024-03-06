@@ -10,7 +10,7 @@ const [movieDetails, setMovieDetails] = useState([]);
 useEffect(() => {
   const fetching = async () => {
     try{
-      console.log("Going for data");
+      // console.log("Going for data");
       fetch("http://localhost:8080/allMovies", {
         method: "GET",
         headers: {
@@ -24,7 +24,7 @@ useEffect(() => {
         return resp.json();
       })
       .then((data) => {
-        console.log("Data received: ", data);
+        // console.log("Data received: ", data);
         if (Array.isArray(data)) {
           setMovieDetails(data);
         } else {
@@ -54,7 +54,7 @@ useEffect(() => {
             <div className="card-body">
               <h5 className="movieTitle">{movie.title}</h5>
               <p className="movieReleased">Released: {movie.release_date}</p>
-              <h5>Generes: <br/> {movie.genres.join(', ')}</h5>
+              <h5>Genres: <br/> {movie.genres.filter(genre => genre !== null).join(', ')}</h5>
             </div>
           </div>
           </Link>
