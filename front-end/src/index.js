@@ -9,6 +9,7 @@ import Login from "./Components/Login";
 import SignUp from "./Components/SignUp";
 import Movie from "./Components/Movie";
 import Review from "./Components/Review";
+import Reviews from "./Components/Reviews";
 
 const url = "http://localhost:8080";
 
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
 		),
 	},
 	{
+		//Specific movie
 		path: "/movie/:id",
 		element: (
 			<> 
@@ -59,11 +61,12 @@ const router = createBrowserRouter([
 		)
 	},
 	{
-		path:"/review",
+		// movie reivews
+		path:"/reviews",
 		element: (
 			<>
 				<NavBar siteName={"My Site"}
-					contentComponent={<Review />}/>
+					contentComponent={<Reviews />}/>
 			</>
 		)
 	},

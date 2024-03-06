@@ -3,6 +3,7 @@ import Actor from "./Actor";
 import { useParams, useNavigate } from "react-router-dom";
 import { Carousel } from 'react-bootstrap';
 import Review from "./Review";
+import Reviews from "./Reviews";
 
 const Movie = () => {
     const {id} = useParams();

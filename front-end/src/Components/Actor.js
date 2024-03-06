@@ -32,7 +32,7 @@ const [isExpanded, setIsExpanded] = useState(false); // State to track if bio is
                 })
                 .then((data) => {
                     // console.log("Data got")
-                    console.log(data)
+                    // console.log(data)
                     setActorInfo(data)
                     // console.log(actorInfo)
                 })

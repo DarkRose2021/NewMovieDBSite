@@ -68,7 +68,7 @@ const Review = ({movieTitle}) => {
     const handleChange = (e) => {
         if (e.target.value.length <= 1000) {
             setReview(e.target.value)
-            console.log(review);
+            // console.log(review);
         }
     }   
 	return (

@@ -30,9 +30,9 @@ const NavBar = ({ siteName, contentComponent }) => {
     return (
         <>
             <div id="mySidebar" className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-                <a href="/login">Login</a>
-                <a href="/signup">Sign Up</a>
-                <a href="/review">Review</a>
+                <a href="/">Movies</a>
+                <a href="/search">Search</a>
+                <a href="/reviews">Reviews</a>
             </div>
 
             <Navbar className="navBar" >
