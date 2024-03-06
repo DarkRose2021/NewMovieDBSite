@@ -115,20 +115,20 @@ exports.dal = {
 			starAmount: star,
 			ReviewTxt: review,
 			UserPosted: user,
-		}
+		};
 
-		try{
-			let newReview = await reviewModel.create(reviewObj)
-			return newReview
-		}catch (error) {
+		try {
+			let newReview = await reviewModel.create(reviewObj);
+			return newReview;
+		} catch (error) {
 			console.error(error);
 			throw error;
 		}
 	},
-	allReviews: async () =>{
+	allReviews: async () => {
 		return await reviewModel.find({}).exec();
 	},
-	deleteReview: async (id) =>{
-		return await reviewModel.findByIdAndDelete(id)
-	}
+	deleteReview: async (id) => {
+		return await reviewModel.findByIdAndDelete(id);
+	},
 };

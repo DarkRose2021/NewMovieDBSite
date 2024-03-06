@@ -8,12 +8,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-require('dotenv').config();
+require("dotenv").config();
 
 // Routes
 require("./routes/userRoutes")(app);
 require("./routes/movieRoutes")(app);
 
 app.listen(port, () => {
-  console.log(`Connected to port ${port}`);
+	console.log(`Connected to port ${port}`);
 });

@@ -10,7 +10,7 @@ const {
 	searchGenres,
 	updateActorMovieDetails,
 	getActorDetails,
-	updateActorDetails
+	updateActorDetails,
 } = require("./movieFetchUtils");
 
 module.exports = (app) => {
@@ -29,7 +29,7 @@ module.exports = (app) => {
 				movieJson.results.map(async (movie) => {
 					// Fetch Cast Information
 					castJson = await fetchCastInformation(movie.id);
-					
+
 					// Update Movie Data with Genres and Actors
 					return updateMovieDetails(movie, genreMapping, castJson);
 				})
@@ -57,58 +57,61 @@ module.exports = (app) => {
 		}
 	});
 
-	app.get("/searchByGenre/:genre", async (req, res) =>{
-		let genre = req.params.genre
+	app.get("/searchByGenre/:genre", async (req, res) => {
+		let genre = req.params.genre;
 		let encodedString = encodeURIComponent(genre);
 		const genreJson = await fetchGenres();
-			genreMapping = genreJson.genres.reduce((acc, genre) => {
-				acc[genre.id] = genre.name;
-				return acc;
-			});
-		let searchedGenre = await searchGenres(encodedString)
-		res.json(searchedGenre)
-	})
+		genreMapping = genreJson.genres.reduce((acc, genre) => {
+			acc[genre.id] = genre.name;
+			return acc;
+		});
+		let searchedGenre = await searchGenres(encodedString);
+		res.json(searchedGenre);
+	});
 
 	// Finished
-	app.get("/searchByActor/:actor", async (req, res) =>{
-		let actor = req.params.actor
+	app.get("/searchByActor/:actor", async (req, res) => {
+		let actor = req.params.actor;
 		let encodedString = encodeURIComponent(actor);
 		const genreJson = await fetchGenres();
-			genreMapping = genreJson.genres.reduce((acc, genre) => {
-				acc[genre.id] = genre.name;
-				return acc;
-			});
-		let searchedPerson = await searchActors(encodedString)
-		const actorsWithDetails = await updateActorMovieDetails(searchedPerson, genreMapping)
-		res.json(actorsWithDetails)
-	})
+		genreMapping = genreJson.genres.reduce((acc, genre) => {
+			acc[genre.id] = genre.name;
+			return acc;
+		});
+		let searchedPerson = await searchActors(encodedString);
+		const actorsWithDetails = await updateActorMovieDetails(
+			searchedPerson,
+			genreMapping
+		);
+		res.json(actorsWithDetails);
+	});
 
 	// Finished
 	app.get("/searchByTitle/:title", async (req, res) => {
 		let title = req.params.title;
 		let encodedString = encodeURIComponent(title);
 		const genreJson = await fetchGenres();
-			genreMapping = genreJson.genres.reduce((acc, genre) => {
-				acc[genre.id] = genre.name;
-				return acc;
-			});
-			const searchedMovies = await searchTitles(encodedString);
+		genreMapping = genreJson.genres.reduce((acc, genre) => {
+			acc[genre.id] = genre.name;
+			return acc;
+		});
+		const searchedMovies = await searchTitles(encodedString);
 
-			// Fetch and Update Movie Data with Genres and Actors concurrently
-			const moviesWithDetails = await Promise.all(
-				searchedMovies.results.map(async (movie) => {
-					const castJson = await fetchCastInformation(movie.id);
-					return updateMovieDetails(movie, genreMapping, castJson);
-				})
-			);
-			res.json(moviesWithDetails);
+		// Fetch and Update Movie Data with Genres and Actors concurrently
+		const moviesWithDetails = await Promise.all(
+			searchedMovies.results.map(async (movie) => {
+				const castJson = await fetchCastInformation(movie.id);
+				return updateMovieDetails(movie, genreMapping, castJson);
+			})
+		);
+		res.json(moviesWithDetails);
 	});
 
 	// Finished
 	app.get("/getActorDetails/:actorID", async (req, res) => {
 		let actorID = req.params.actorID;
-		let details = await getActorDetails(actorID)
-		let updatedInfo = await updateActorDetails(details)
-		res.json(updatedInfo)
-	})
+		let details = await getActorDetails(actorID);
+		let updatedInfo = await updateActorDetails(details);
+		res.json(updatedInfo);
+	});
 };
