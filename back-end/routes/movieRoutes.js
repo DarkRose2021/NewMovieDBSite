@@ -27,10 +27,8 @@ module.exports = (app) => {
 
 			const moviesWithDetails = await Promise.all(
 				movieJson.results.map(async (movie) => {
-					// Fetch Cast Information
 					castJson = await fetchCastInformation(movie.id);
 
-					// Update Movie Data with Genres and Actors
 					return updateMovieDetails(movie, genreMapping, castJson);
 				})
 			);

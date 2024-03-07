@@ -15,7 +15,6 @@ module.exports = (app) => {
 
 		try {
 			const found = await dal.findUserEmail(email);
-			console.log(found);
 
 			if (!found) {
 				res.json({ Message: "Invalid Email or password" });
