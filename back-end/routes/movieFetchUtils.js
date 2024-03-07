@@ -151,9 +151,6 @@ module.exports = {
 			(actor) => actor.known_for_department === "Acting"
 		);
 
-		console.log("castData:", castData);
-		console.log("actorsData:", actorsData);
-
 		const actorsWithIdAndName = actorsData.map((actor) => {
 			return {
 				id: actor.id,

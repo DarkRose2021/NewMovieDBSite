@@ -57,16 +57,34 @@ exports.dal = {
 			Password: hashedPassword,
 			Roles: ["User"],
 		};
-
 		try {
 			let existingUser = await userModel.findOne(check);
-
 			if (existingUser) {
 				return "Email Taken";
 			} else {
 				let newUser = await userModel.create(user);
 				return newUser;
 			}
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	},
+	createUsersBatch: async (usersArray) => {
+		try {
+			const hashedUsers = usersArray.map(({ email, fname, password }) => {
+				const hashedPassword = bcryptjs.hashSync(password, 10);
+				return {
+					Email: email,
+					Name: fname,
+					Password: hashedPassword,
+					Roles: ["User"],
+				};
+			});
+			console.log('connecting.....')
+
+			const result = await userModel.collection.insertMany(hashedUsers);
+			return result.ops;
 		} catch (error) {
 			console.error(error);
 			throw error;
