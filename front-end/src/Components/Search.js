@@ -62,11 +62,18 @@ const Search = () => {
       <ul>
         {searchResults.map(actor => (
           <li key={actor.id}>
-            <Link to={`/actor/${actor.id}`}>
-              <img src={`https://image.tmdb.org/t/p/original/${actor.profile_path}`} alt={actor.name} />
-              <br />
+              
               <h1 className="actorName">{actor.name}</h1>	
-            </Link>
+			  <h3>Known For:</h3>
+			  <ul> 
+			  {actor.known_for.slice(0, 3).map(movie => (
+                <li key={movie.id}>
+                  <Link to={`/movie/${movie.id}`}>
+                    {movie.movie_name}
+                  </Link>
+                </li>
+              ))}
+			  </ul>
           </li>
         ))}
       </ul>
