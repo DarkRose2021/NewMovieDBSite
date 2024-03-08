@@ -33,6 +33,7 @@ const NavBar = ({ siteName, contentComponent }) => {
                 <a href="/">Movies</a>
                 <a href="/search">Search</a>
                 <a href="/reviews">Reviews</a>
+               
             </div>
 
             <Navbar className="navBar" >

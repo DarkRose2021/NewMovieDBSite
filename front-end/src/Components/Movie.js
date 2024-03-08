@@ -68,16 +68,21 @@ const Movie = () => {
             <div>
                 {movieData ? (
                     <>         
-                    <div className="moviePage">
+                    <div className="moviePage"  style={{ 
+                                 backgroundImage: `url('https://image.tmdb.org/t/p/w300/${movieData.backdrop_path}')`,
+                                 backgroundRepeat: 'no-repeat',
+                                 backgroundSize: 'cover',
+                                 backgroundPosition: 'center',
+                                 minHeight: '100vh'
+                            }}>
                             <div className="posterAndDetail">
                                 <h1 className="movieTitle">{movieData.title}</h1>
                                 <div className="movieDetails">
                                     
-                                    <img src={`https://image.tmdb.org/t/p/w300/${movieData.poster_path}`} className="moviePic" style={{ backgroundImage: `url('https://image.tmdb.org/t/p/w300/${movieData.backdrop_path})`}} alt={movieData.title} />
-                                    <p className="movieDescription">{movieData.overview}</p>
-                                    <h4 className="released">{movieData.release_date}</h4>
-                                    
+                                    <img src={`https://image.tmdb.org/t/p/w300/${movieData.poster_path}`} className="moviePic"  alt={movieData.title} /> 
                                 </div>
+                                <p className="movieDescription">{movieData.overview}</p>
+                                <h4 className="released">{movieData.release_date}</h4>
                                 <p className="stars">{renderStars(movieData.vote_average)}</p> 
                             </div>
                             

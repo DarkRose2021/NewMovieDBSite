@@ -99,13 +99,12 @@ const Search = () => {
   return (
     <div>
       <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
+        <Dropdown.Toggle  id="dropdown-basic">
           {searchCategory}
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item onClick={() => handleCategoryChange('Movie')}>Movie</Dropdown.Item>
           <Dropdown.Item onClick={() => handleCategoryChange('Actor')}>Actor</Dropdown.Item>
-          <Dropdown.Item onClick={() => handleCategoryChange('Genre')}>Genre</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
 
